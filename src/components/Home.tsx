@@ -38,8 +38,13 @@ export default function Home({
         <MuteButton />
       </div>
 
-      <div className="mb-2 mt-4 text-5xl">🎓</div>
-      <h1 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Bilik Ustası</h1>
+      <div className="relative mt-4 flex flex-col items-center">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-indigo-400 via-violet-400 to-fuchsia-400 opacity-25 blur-3xl" />
+        <div className="mb-2 text-5xl">🎓</div>
+        <h1 className="bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">
+          Bilik Ustası
+        </h1>
+      </div>
       <p className="mt-2 max-w-md text-sm text-slate-500 sm:text-base">
         Məktəblilər üçün fənlər üzrə bilik yoxlama oyunu. Fənn seç, çətinlik səviyyəsini
         seç və vaxta qarşı xal topla!
