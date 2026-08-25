@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { badgeFor } from '../lib/scoring'
 import { subjects, difficultyMeta } from '../data/subjects'
-import type { Difficulty, HighScore, SubjectId } from '../types'
+import { achievements } from '../data/achievements'
+import { playAchievement } from '../lib/sound'
+import type { Achievement, Difficulty, HighScore, Profile, SubjectId } from '../types'
 
 interface Props {
   subjectId: SubjectId
@@ -10,6 +12,8 @@ interface Props {
   correct: number
   total: number
   highScores: HighScore[]
+  profile: Profile | null
+  newlyUnlocked: string[]
   onSave: (name: string) => void
   onPlayAgain: () => void
   onHome: () => void
@@ -22,14 +26,22 @@ export default function Results({
   correct,
   total,
   highScores,
+  profile,
+  newlyUnlocked,
   onSave,
   onPlayAgain,
   onHome,
 }: Props) {
-  const [name, setName] = useState('')
+  const [name, setName] = useState(profile?.name ?? '')
   const [saved, setSaved] = useState(false)
   const subject = subjects.find((s) => s.id === subjectId)!
   const badge = badgeFor(correct, total)
+  const unlockedAchievements: Achievement[] = achievements.filter((a) => newlyUnlocked.includes(a.id))
+
+  useEffect(() => {
+    if (unlockedAchievements.length > 0) playAchievement()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const relevant = highScores
     .filter((h) => h.subject === subjectId && h.difficulty === difficulty)
@@ -50,6 +62,23 @@ export default function Results({
       <p className="mt-1 text-sm text-slate-500">
         {subject.emoji} {subject.name} · {difficultyMeta[difficulty].label}
       </p>
+
+      {unlockedAchievements.length > 0 && (
+        <div className="animate-pop mt-4 flex w-full flex-col gap-2">
+          {unlockedAchievements.map((a) => (
+            <div
+              key={a.id}
+              className="flex items-center gap-3 rounded-xl bg-violet-50 px-4 py-3 text-left ring-1 ring-violet-200"
+            >
+              <span className="text-2xl">{a.emoji}</span>
+              <div>
+                <div className="text-sm font-semibold text-violet-900">Yeni nailiyyət: {a.title}</div>
+                <div className="text-xs text-violet-600">{a.description}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="mt-6 grid w-full grid-cols-2 gap-3">
         <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">

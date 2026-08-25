@@ -31,3 +31,25 @@ export interface HighScore {
   score: number
   date: string
 }
+
+export interface Profile {
+  name: string
+  email: string
+}
+
+export interface Stats {
+  totalPlayed: number
+  subjectsPlayed: SubjectId[]
+  perfectScores: number
+  goldBadges: number
+  maxStreak: number
+  unlockedAchievements: string[]
+}
+
+export interface Achievement {
+  id: string
+  title: string
+  description: string
+  emoji: string
+  check: (stats: Stats) => boolean
+}

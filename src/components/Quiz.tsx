@@ -2,13 +2,15 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { questionBank } from '../data/questions'
 import { shuffle } from '../lib/shuffle'
 import { pointsFor, QUESTION_SECONDS } from '../lib/scoring'
+import { playCorrect, playWrong } from '../lib/sound'
 import type { Difficulty, Question, SubjectId } from '../types'
 import { subjects } from '../data/subjects'
+import MuteButton from './MuteButton'
 
 interface Props {
   subjectId: SubjectId
   difficulty: Difficulty
-  onFinish: (result: { score: number; correct: number; total: number }) => void
+  onFinish: (result: { score: number; correct: number; total: number; maxStreak: number }) => void
   onQuit: () => void
 }
 
@@ -31,6 +33,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
   const [score, setScore] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
   const [streak, setStreak] = useState(0)
+  const [maxStreak, setMaxStreak] = useState(0)
 
   const current = questions[index]
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -58,12 +61,18 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
     setSelected(option)
 
     const isCorrect = option === current.correct
+    let finalMaxStreak = maxStreak
     if (isCorrect) {
-      const gained = pointsFor(timeLeft, streak + 1)
+      playCorrect()
+      const newStreak = streak + 1
+      const gained = pointsFor(timeLeft, newStreak)
       setScore((s) => s + gained)
       setCorrectCount((c) => c + 1)
-      setStreak((s) => s + 1)
+      setStreak(newStreak)
+      finalMaxStreak = Math.max(maxStreak, newStreak)
+      setMaxStreak(finalMaxStreak)
     } else {
+      playWrong()
       setStreak(0)
     }
 
@@ -78,6 +87,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
           score: score + (isCorrect ? pointsFor(timeLeft, streak + 1) : 0),
           correct: correctCount + (isCorrect ? 1 : 0),
           total: questions.length,
+          maxStreak: finalMaxStreak,
         })
       }
     }, 1100)
@@ -93,7 +103,10 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
       <div className="flex items-center justify-between text-xs text-slate-500">
         <button onClick={onQuit} className="hover:text-slate-900">✕ Çıx</button>
         <span>{subject.emoji} {subject.name}</span>
-        <span>{index + 1}/{questions.length}</span>
+        <div className="flex items-center gap-3">
+          <span>{index + 1}/{questions.length}</span>
+          <MuteButton size="sm" />
+        </div>
       </div>
 
       <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
