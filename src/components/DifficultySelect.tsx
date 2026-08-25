@@ -19,7 +19,10 @@ export default function DifficultySelect({ subjectId, onSelectDifficulty, onBack
       </button>
       <div className="text-4xl">{subject.emoji}</div>
       <h2 className="mt-2 text-2xl font-bold text-slate-900">{subject.name}</h2>
-      <p className="mt-1 text-sm text-slate-500">Çətinlik səviyyəsini seç</p>
+      <p className="mt-1 text-sm text-slate-500">Başlanğıc səviyyəni seç</p>
+      <p className="mt-1 max-w-xs text-xs text-slate-400">
+        Çətinlik cavablarına görə avtomatik dəyişəcək: düzgün cavab versən bir pillə yuxarı, səhv cavab versən bir pillə aşağı düşəcək.
+      </p>
 
       <div className="mt-8 flex w-full flex-col gap-3">
         {order.map((d) => (

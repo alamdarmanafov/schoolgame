@@ -1,11 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { questionBank } from '../data/questions'
 import { shuffle } from '../lib/shuffle'
-import { pointsFor, QUESTION_SECONDS } from '../lib/scoring'
+import { POINTS_PER_CORRECT, QUESTION_SECONDS } from '../lib/scoring'
 import { playCorrect, playWrong } from '../lib/sound'
 import type { Difficulty, Question, SubjectId } from '../types'
-import { subjects } from '../data/subjects'
+import { subjects, difficultyMeta } from '../data/subjects'
 import MuteButton from './MuteButton'
+
+const TOTAL_QUESTIONS = 20
+const LEVELS: Difficulty[] = ['asan', 'orta', 'cetin']
+
+const LEVEL_STYLE: Record<Difficulty, string> = {
+  asan: 'bg-emerald-50 text-emerald-600 ring-emerald-200',
+  orta: 'bg-amber-50 text-amber-600 ring-amber-200',
+  cetin: 'bg-red-50 text-red-600 ring-red-200',
+}
 
 interface Props {
   subjectId: SubjectId
@@ -16,17 +25,33 @@ interface Props {
 
 interface PreparedQuestion extends Question {
   shuffledOptions: string[]
+  difficulty: Difficulty
 }
 
 export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props) {
   const subject = subjects.find((s) => s.id === subjectId)!
 
-  const questions = useMemo<PreparedQuestion[]>(() => {
-    const pool = questionBank[subjectId][difficulty]
-    return shuffle(pool).map((q) => ({ ...q, shuffledOptions: shuffle(q.options) }))
-  }, [subjectId, difficulty])
+  const pools = useMemo(
+    () => ({
+      asan: shuffle(questionBank[subjectId].asan),
+      orta: shuffle(questionBank[subjectId].orta),
+      cetin: shuffle(questionBank[subjectId].cetin),
+    }),
+    [subjectId],
+  )
+  const pointers = useRef<Record<Difficulty, number>>({ asan: 0, orta: 0, cetin: 0 })
 
-  const [index, setIndex] = useState(0)
+  function pickQuestion(level: Difficulty): PreparedQuestion {
+    const pool = pools[level]
+    const idx = pointers.current[level] % pool.length
+    pointers.current[level] += 1
+    const q = pool[idx]
+    return { ...q, shuffledOptions: shuffle(q.options), difficulty: level }
+  }
+
+  const [levelIndex, setLevelIndex] = useState(LEVELS.indexOf(difficulty))
+  const [current, setCurrent] = useState<PreparedQuestion>(() => pickQuestion(difficulty))
+  const [questionNumber, setQuestionNumber] = useState(1)
   const [timeLeft, setTimeLeft] = useState(QUESTION_SECONDS)
   const [selected, setSelected] = useState<string | null>(null)
   const [locked, setLocked] = useState(false)
@@ -35,7 +60,6 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
   const [streak, setStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0)
 
-  const current = questions[index]
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -62,40 +86,43 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
 
     const isCorrect = option === current.correct
     let finalMaxStreak = maxStreak
+    let nextLevelIndex = levelIndex
+
     if (isCorrect) {
       playCorrect()
-      const newStreak = streak + 1
-      const gained = pointsFor(timeLeft, newStreak)
-      setScore((s) => s + gained)
+      setScore((s) => s + POINTS_PER_CORRECT)
       setCorrectCount((c) => c + 1)
+      const newStreak = streak + 1
       setStreak(newStreak)
       finalMaxStreak = Math.max(maxStreak, newStreak)
       setMaxStreak(finalMaxStreak)
+      nextLevelIndex = Math.min(levelIndex + 1, LEVELS.length - 1)
     } else {
       playWrong()
       setStreak(0)
+      nextLevelIndex = Math.max(levelIndex - 1, 0)
     }
+    setLevelIndex(nextLevelIndex)
 
     advanceTimer.current = setTimeout(() => {
-      if (index + 1 < questions.length) {
-        setIndex((i) => i + 1)
+      if (questionNumber < TOTAL_QUESTIONS) {
+        setCurrent(pickQuestion(LEVELS[nextLevelIndex]))
+        setQuestionNumber((n) => n + 1)
         setTimeLeft(QUESTION_SECONDS)
         setSelected(null)
         setLocked(false)
       } else {
         onFinish({
-          score: score + (isCorrect ? pointsFor(timeLeft, streak + 1) : 0),
+          score: score + (isCorrect ? POINTS_PER_CORRECT : 0),
           correct: correctCount + (isCorrect ? 1 : 0),
-          total: questions.length,
+          total: TOTAL_QUESTIONS,
           maxStreak: finalMaxStreak,
         })
       }
     }, 1100)
   }
 
-  if (!current) return null
-
-  const progressPct = ((index + 1) / questions.length) * 100
+  const progressPct = (questionNumber / TOTAL_QUESTIONS) * 100
   const timePct = (timeLeft / QUESTION_SECONDS) * 100
 
   return (
@@ -104,7 +131,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
         <button onClick={onQuit} className="hover:text-slate-900">✕ Çıx</button>
         <span>{subject.emoji} {subject.name}</span>
         <div className="flex items-center gap-3">
-          <span>{index + 1}/{questions.length}</span>
+          <span>{questionNumber}/{TOTAL_QUESTIONS}</span>
           <MuteButton size="sm" />
         </div>
       </div>
@@ -117,9 +144,12 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
       </div>
 
       <div className="mt-4 flex items-center justify-between">
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200">
             ⭐ {score}
+          </span>
+          <span className={`rounded-full px-3 py-1 font-semibold ring-1 ${LEVEL_STYLE[current.difficulty]}`}>
+            {difficultyMeta[current.difficulty].label}
           </span>
           {streak >= 2 && (
             <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-600 ring-1 ring-orange-200">
@@ -138,7 +168,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
         />
       </div>
 
-      <div key={index} className="animate-pop mt-8 flex flex-1 flex-col">
+      <div key={questionNumber} className="animate-pop mt-8 flex flex-1 flex-col">
         <h2 className="text-xl font-bold leading-snug text-slate-900 sm:text-2xl">{current.q}</h2>
 
         <div className="mt-6 grid gap-3">

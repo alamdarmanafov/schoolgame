@@ -8,10 +8,4 @@ export function badgeFor(correct: number, total: number): { emoji: string; label
 }
 
 export const QUESTION_SECONDS = 20
-
-export function pointsFor(remainingSeconds: number, streak: number): number {
-  const base = 100
-  const speedBonus = remainingSeconds * 4
-  const streakBonus = streak >= 3 ? (streak - 2) * 15 : 0
-  return base + speedBonus + streakBonus
-}
+export const POINTS_PER_CORRECT = 1
