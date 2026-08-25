@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { partners } from '../data/partners'
 import { startOfMonth, startOfWeek, topScorer } from '../lib/rewards'
+import { downloadCertificate, monthLabel } from '../lib/certificate'
 import type { HighScore, Profile } from '../types'
 
 interface Props {
@@ -70,6 +71,21 @@ export default function Rewards({ highScores, profile, onBack }: Props) {
         <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-center text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200">
           🎉 Təbriklər, sən qalibsən! Aşağıdakı tərəfdaşlardan endirim qazanmaq üçün bu ekranın şəklini məktəbinə/təşkilatçıya göstər.
         </div>
+      )}
+
+      {monthlyWinner && (
+        <button
+          onClick={() =>
+            downloadCertificate({
+              name: monthlyWinner.name,
+              score: monthlyWinner.total,
+              periodLabel: monthLabel(new Date()),
+            })
+          }
+          className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:from-indigo-500 hover:to-violet-500"
+        >
+          🎓 Ayın qalibi sertifikatını yüklə
+        </button>
       )}
 
       <h3 className="mt-8 text-xs font-semibold uppercase tracking-wide text-slate-400">Tərəfdaşlar</h3>
