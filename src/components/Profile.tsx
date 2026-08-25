@@ -88,10 +88,14 @@ export default function Profile({ profile, onSave, onLogout, onBack, gated = fal
           <input
             value={name}
             maxLength={20}
+            disabled={!!profile}
             onChange={(e) => setName(e.target.value)}
             placeholder="Adını yaz"
-            className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400"
+            className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400 disabled:bg-slate-100 disabled:text-slate-500"
           />
+          {profile && (
+            <span className="text-xs text-slate-400">Ad email ilə bağlıdır və dəyişdirilə bilməz.</span>
+          )}
         </label>
         <label className="flex flex-col gap-1.5 text-left">
           <span className="text-xs font-semibold text-slate-500">Email</span>

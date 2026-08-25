@@ -95,10 +95,9 @@ export default function App() {
   function handleSaveProfile(p: ProfileType): { alreadyRegistered: boolean; resolvedName: string } {
     const key = p.email.trim().toLowerCase()
     const name = p.name.trim()
-    const isEditingOwn = !!profile && profile.email.trim().toLowerCase() === key
     const existingName = registeredEmails[key]
 
-    if (existingName && !isEditingOwn) {
+    if (existingName) {
       setProfile({ name: existingName, email: key })
       return { alreadyRegistered: true, resolvedName: existingName }
     }
