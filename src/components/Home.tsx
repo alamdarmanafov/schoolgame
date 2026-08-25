@@ -11,6 +11,7 @@ interface Props {
   onOpenProfile: () => void
   onOpenAchievements: () => void
   onOpenLeaderboard: () => void
+  onOpenRewards: () => void
 }
 
 export default function Home({
@@ -21,6 +22,7 @@ export default function Home({
   onOpenProfile,
   onOpenAchievements,
   onOpenLeaderboard,
+  onOpenRewards,
 }: Props) {
   const unlockedCount = achievements.filter((a) => stats.unlockedAchievements.includes(a.id)).length
 
@@ -55,6 +57,12 @@ export default function Home({
           className="rounded-full bg-violet-50 px-4 py-1.5 text-xs font-medium text-violet-700 ring-1 ring-violet-200 transition hover:bg-violet-100"
         >
           🏅 Nailiyyətlər: {unlockedCount}/{achievements.length}
+        </button>
+        <button
+          onClick={onOpenRewards}
+          className="rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-medium text-emerald-700 ring-1 ring-emerald-200 transition hover:bg-emerald-100"
+        >
+          🎁 Mükafatlar
         </button>
       </div>
 

@@ -6,11 +6,12 @@ import Results from './components/Results'
 import Profile from './components/Profile'
 import Achievements from './components/Achievements'
 import Leaderboard from './components/Leaderboard'
+import Rewards from './components/Rewards'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { initialStats, updateStats } from './lib/stats'
 import type { Difficulty, HighScore, Profile as ProfileType, SubjectId, Stats } from './types'
 
-type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'profile' | 'achievements' | 'leaderboard'
+type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'profile' | 'achievements' | 'leaderboard' | 'rewards'
 
 interface RoundResult {
   score: number
@@ -138,6 +139,7 @@ export default function App() {
           onOpenProfile={() => setScreen('profile')}
           onOpenAchievements={() => setScreen('achievements')}
           onOpenLeaderboard={() => setScreen('leaderboard')}
+          onOpenRewards={() => setScreen('rewards')}
         />
       )}
 
@@ -155,6 +157,10 @@ export default function App() {
 
       {screen === 'leaderboard' && (
         <Leaderboard highScores={highScores} profile={profile} onBack={() => setScreen('home')} />
+      )}
+
+      {screen === 'rewards' && (
+        <Rewards highScores={highScores} profile={profile} onBack={() => setScreen('home')} />
       )}
 
       {screen === 'difficulty' && subjectId && (
