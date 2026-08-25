@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Profile as ProfileType } from '../types'
 
+interface SaveResult {
+  alreadyRegistered: boolean
+  resolvedName: string
+}
+
 interface Props {
   profile: ProfileType | null
-  onSave: (profile: ProfileType) => void
+  onSave: (profile: ProfileType) => SaveResult
   onLogout: () => void
   onBack: () => void
   gated?: boolean
@@ -15,7 +20,7 @@ export default function Profile({ profile, onSave, onLogout, onBack, gated = fal
   const [name, setName] = useState(profile?.name ?? '')
   const [email, setEmail] = useState(profile?.email ?? '')
   const [error, setError] = useState('')
-  const [saved, setSaved] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
   const returnTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -36,16 +41,21 @@ export default function Profile({ profile, onSave, onLogout, onBack, gated = fal
       return
     }
     setError('')
-    onSave({ name: trimmedName, email: trimmedEmail })
-    setSaved(true)
-    returnTimer.current = setTimeout(onBack, 900)
+    const { alreadyRegistered, resolvedName } = onSave({ name: trimmedName, email: trimmedEmail })
+    if (alreadyRegistered) {
+      setName(resolvedName)
+      setSuccessMessage(`Bu email artıq "${resolvedName}" adı ilə qeydiyyatdan keçib — hesabına daxil olundu.`)
+    } else {
+      setSuccessMessage('✓ Profil yadda saxlanıldı')
+    }
+    returnTimer.current = setTimeout(onBack, 1100)
   }
 
   function handleLogout() {
     onLogout()
     setName('')
     setEmail('')
-    setSaved(false)
+    setSuccessMessage('')
     onBack()
   }
 
@@ -93,7 +103,7 @@ export default function Profile({ profile, onSave, onLogout, onBack, gated = fal
         </label>
 
         {error && <p className="text-sm text-red-600">{error}</p>}
-        {saved && !error && <p className="text-sm text-emerald-600">✓ Profil yadda saxlanıldı</p>}
+        {successMessage && !error && <p className="text-sm text-emerald-600">{successMessage}</p>}
 
         <button
           onClick={handleSave}

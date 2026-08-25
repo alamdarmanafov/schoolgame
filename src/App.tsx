@@ -30,6 +30,10 @@ export default function App() {
   const [highScores, setHighScores] = useLocalStorage<HighScore[]>('az-school-quiz-scores', [])
   const [profile, setProfile] = useLocalStorage<ProfileType | null>('az-school-quiz-profile', null)
   const [stats, setStats] = useLocalStorage<Stats>('az-school-quiz-stats', initialStats)
+  const [registeredEmails, setRegisteredEmails] = useLocalStorage<Record<string, string>>(
+    'az-school-quiz-registry',
+    {},
+  )
 
   const bestOverall = highScores.reduce((max, h) => Math.max(max, h.score), 0)
 
@@ -88,8 +92,21 @@ export default function App() {
     setHighScores((prev) => [...prev, entry])
   }
 
-  function handleSaveProfile(p: ProfileType) {
-    setProfile(p)
+  function handleSaveProfile(p: ProfileType): { alreadyRegistered: boolean; resolvedName: string } {
+    const key = p.email.trim().toLowerCase()
+    const name = p.name.trim()
+    const email = p.email.trim()
+    const isEditingOwn = !!profile && profile.email.trim().toLowerCase() === key
+    const existingName = registeredEmails[key]
+
+    if (existingName && !isEditingOwn) {
+      setProfile({ name: existingName, email })
+      return { alreadyRegistered: true, resolvedName: existingName }
+    }
+
+    setRegisteredEmails((prev) => ({ ...prev, [key]: name }))
+    setProfile({ name, email })
+    return { alreadyRegistered: false, resolvedName: name }
   }
 
   function handleLogout() {
