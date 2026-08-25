@@ -140,7 +140,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f5fb]">
+    <div className="min-h-screen bg-[#f4f5fb] dark:bg-[#0b0e1a]">
       {screen === 'home' && (
         <Home
           onSelectSubject={handleSelectSubject}

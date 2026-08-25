@@ -94,22 +94,22 @@ export default function Profile({ profile, registeredEmails, onSave, onLogout, o
   if (profile) {
     return (
       <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-10">
-        <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900">
+        <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
           ← Geri
         </button>
 
         <div className="text-center">
           <div className="text-4xl">👤</div>
-          <h2 className="mt-2 text-2xl font-bold text-slate-900">Hesabın</h2>
+          <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">Hesabın</h2>
         </div>
 
         <div className="mt-8 flex flex-col gap-3">
-          <div className="rounded-lg bg-slate-100 px-3 py-2.5 text-sm text-slate-700">{profile.name}</div>
-          <div className="rounded-lg bg-slate-100 px-3 py-2.5 text-sm text-slate-500">{profile.email}</div>
+          <div className="rounded-lg bg-slate-100 px-3 py-2.5 text-sm text-slate-700 dark:bg-slate-800 dark:text-slate-300">{profile.name}</div>
+          <div className="rounded-lg bg-slate-100 px-3 py-2.5 text-sm text-slate-500 dark:bg-slate-800 dark:text-slate-400">{profile.email}</div>
 
           <button
             onClick={handleLogout}
-            className="mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+            className="mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10"
           >
             Çıxış et
           </button>
@@ -120,14 +120,14 @@ export default function Profile({ profile, registeredEmails, onSave, onLogout, o
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col px-5 py-10">
-      <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900">
+      <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
         ← Geri
       </button>
 
       <div className="text-center">
         <div className="text-4xl">👤</div>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900">{mode === 'login' ? 'Daxil ol' : 'Qeydiyyat'}</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{mode === 'login' ? 'Daxil ol' : 'Qeydiyyat'}</h2>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           {mode === 'login'
             ? 'Qeydiyyatdan keçdiyin emaili yaz — adın avtomatik tanınacaq.'
             : 'Adını və emailini daxil et — bu cihazda saxlanılır və reytinq lövhəsində istifadə olunur.'}
@@ -135,16 +135,18 @@ export default function Profile({ profile, registeredEmails, onSave, onLogout, o
       </div>
 
       {gated && (
-        <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-center text-sm font-medium text-amber-700 ring-1 ring-amber-200">
+        <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-center text-sm font-medium text-amber-700 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/30">
           🔒 İmtahana başlamaq üçün əvvəlcə daxil ol və ya qeydiyyatdan keç.
         </div>
       )}
 
-      <div className="mt-6 grid grid-cols-2 gap-1.5 rounded-xl bg-slate-100 p-1">
+      <div className="mt-6 grid grid-cols-2 gap-1.5 rounded-xl bg-slate-100 p-1 dark:bg-slate-800">
         <button
           onClick={() => switchMode('login')}
           className={`rounded-lg py-2 text-sm font-semibold transition ${
-            mode === 'login' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            mode === 'login'
+              ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+              : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
           }`}
         >
           Daxil ol
@@ -152,7 +154,9 @@ export default function Profile({ profile, registeredEmails, onSave, onLogout, o
         <button
           onClick={() => switchMode('register')}
           className={`rounded-lg py-2 text-sm font-semibold transition ${
-            mode === 'register' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            mode === 'register'
+              ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+              : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
           }`}
         >
           Qeydiyyat
@@ -162,35 +166,35 @@ export default function Profile({ profile, registeredEmails, onSave, onLogout, o
       <div className="mt-6 flex flex-col gap-3">
         {mode === 'register' && (
           <label className="flex flex-col gap-1.5 text-left">
-            <span className="text-xs font-semibold text-slate-500">Ad</span>
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Ad</span>
             <input
               value={name}
               maxLength={20}
               onChange={(e) => setName(e.target.value)}
               placeholder="Adını yaz"
-              className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400"
+              className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:ring-slate-700"
             />
           </label>
         )}
 
         <label className="flex flex-col gap-1.5 text-left">
-          <span className="text-xs font-semibold text-slate-500">Email</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Email</span>
           <input
             value={email}
             type="email"
             maxLength={60}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="sen@example.com"
-            className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400"
+            className="rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:ring-slate-700"
           />
         </label>
 
         {mode === 'login' && matchedName && (
-          <p className="text-sm text-indigo-600">👋 Salam, {matchedName}! Bu hesabla davam et.</p>
+          <p className="text-sm text-indigo-600 dark:text-indigo-400">👋 Salam, {matchedName}! Bu hesabla davam et.</p>
         )}
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        {successMessage && !error && <p className="text-sm text-emerald-600">{successMessage}</p>}
+        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {successMessage && !error && <p className="text-sm text-emerald-600 dark:text-emerald-400">{successMessage}</p>}
 
         <button
           onClick={mode === 'login' ? handleLoginSubmit : handleRegisterSubmit}

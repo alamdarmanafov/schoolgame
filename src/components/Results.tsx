@@ -60,8 +60,8 @@ export default function Results({
   return (
     <div className="mx-auto flex min-h-screen max-w-xl flex-col items-center px-5 py-10 text-center">
       <div className="animate-pop text-6xl">{badge.emoji}</div>
-      <h2 className="mt-3 text-2xl font-bold text-slate-900">{badge.label}</h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <h2 className="mt-3 text-2xl font-bold text-slate-900 dark:text-slate-100">{badge.label}</h2>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
         {subject.emoji} {subject.name} · {difficultyMeta[difficulty].label}
       </p>
 
@@ -70,12 +70,12 @@ export default function Results({
           {unlockedAchievements.map((a) => (
             <div
               key={a.id}
-              className="flex items-center gap-3 rounded-xl bg-violet-50 px-4 py-3 text-left ring-1 ring-violet-200"
+              className="flex items-center gap-3 rounded-xl bg-violet-50 px-4 py-3 text-left ring-1 ring-violet-200 dark:bg-violet-500/10 dark:ring-violet-500/30"
             >
               <span className="text-2xl">{a.emoji}</span>
               <div>
-                <div className="text-sm font-semibold text-violet-900">Yeni nailiyyət: {a.title}</div>
-                <div className="text-xs text-violet-600">{a.description}</div>
+                <div className="text-sm font-semibold text-violet-900 dark:text-violet-300">Yeni nailiyyət: {a.title}</div>
+                <div className="text-xs text-violet-600 dark:text-violet-400">{a.description}</div>
               </div>
             </div>
           ))}
@@ -83,13 +83,13 @@ export default function Results({
       )}
 
       <div className="mt-6 grid w-full grid-cols-2 gap-3">
-        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-          <div className="text-2xl font-extrabold text-slate-900">{score}</div>
-          <div className="text-xs text-slate-500">Xal</div>
+        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
+          <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">{score}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Xal</div>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-          <div className="text-2xl font-extrabold text-slate-900">{correct}/{total}</div>
-          <div className="text-xs text-slate-500">Düzgün cavab</div>
+        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
+          <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">{correct}/{total}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Düzgün cavab</div>
         </div>
       </div>
 
@@ -101,7 +101,7 @@ export default function Results({
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             placeholder="Adını yaz və reytinqə əlavə et"
-            className="min-w-0 flex-1 rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400"
+            className="min-w-0 flex-1 rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:ring-slate-700"
           />
           <button
             onClick={handleSave}
@@ -111,24 +111,24 @@ export default function Results({
           </button>
         </div>
       ) : (
-        <p className="mt-6 text-sm text-emerald-600">✓ Nəticən reytinqə əlavə olundu</p>
+        <p className="mt-6 text-sm text-emerald-600 dark:text-emerald-400">✓ Nəticən reytinqə əlavə olundu</p>
       )}
 
       {relevant.length > 0 && (
         <div className="mt-8 w-full text-left">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
             🏆 Bu bölmənin liderləri
           </h3>
           <div className="flex flex-col gap-1.5">
             {relevant.map((h, i) => (
               <div
                 key={`${h.name}-${h.date}-${i}`}
-                className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-sm shadow-sm ring-1 ring-slate-200"
+                className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-sm shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700"
               >
-                <span className="flex items-center gap-2 text-slate-700">
-                  <span className="text-slate-400">#{i + 1}</span> {h.name}
+                <span className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+                  <span className="text-slate-400 dark:text-slate-500">#{i + 1}</span> {h.name}
                 </span>
-                <span className="font-semibold text-slate-900">{h.score}</span>
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{h.score}</span>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function Results({
 
       <button
         onClick={onReview}
-        className="mt-8 w-full rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95"
+        className="mt-8 w-full rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700 dark:hover:bg-slate-700/60"
       >
         📋 Sualların təhlilinə bax
       </button>
@@ -151,7 +151,7 @@ export default function Results({
         </button>
         <button
           onClick={onHome}
-          className="flex-1 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95"
+          className="flex-1 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700 dark:hover:bg-slate-700/60"
         >
           🏠 Əsas menyu
         </button>

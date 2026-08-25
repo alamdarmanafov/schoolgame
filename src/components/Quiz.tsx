@@ -11,9 +11,9 @@ const TOTAL_QUESTIONS = 20
 const LEVELS: Difficulty[] = ['asan', 'orta', 'cetin']
 
 const LEVEL_STYLE: Record<Difficulty, string> = {
-  asan: 'bg-emerald-50 text-emerald-600 ring-emerald-200',
-  orta: 'bg-amber-50 text-amber-600 ring-amber-200',
-  cetin: 'bg-red-50 text-red-600 ring-red-200',
+  asan: 'bg-emerald-50 text-emerald-600 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-500/30',
+  orta: 'bg-amber-50 text-amber-600 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/30',
+  cetin: 'bg-red-50 text-red-600 ring-red-200 dark:bg-red-500/10 dark:text-red-400 dark:ring-red-500/30',
 }
 
 interface Props {
@@ -144,8 +144,8 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
 
   return (
     <div className="mx-auto flex min-h-screen max-w-xl flex-col px-5 py-8">
-      <div className="flex items-center justify-between text-xs text-slate-500">
-        <button onClick={onQuit} className="hover:text-slate-900">✕ Çıx</button>
+      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+        <button onClick={onQuit} className="hover:text-slate-900 dark:hover:text-white">✕ Çıx</button>
         <span>{subject.emoji} {subject.name}</span>
         <div className="flex items-center gap-3">
           <span>{questionNumber}/{TOTAL_QUESTIONS}</span>
@@ -153,7 +153,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
         </div>
       </div>
 
-      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
         <div
           className={`h-full bg-gradient-to-r ${subject.gradient} transition-all duration-300`}
           style={{ width: `${progressPct}%` }}
@@ -162,23 +162,23 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
 
       <div className="mt-4 flex items-center justify-between">
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200">
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700">
             ⭐ {score}
           </span>
           <span className={`rounded-full px-3 py-1 font-semibold ring-1 ${LEVEL_STYLE[current.difficulty]}`}>
             {difficultyMeta[current.difficulty].label}
           </span>
           {streak >= 2 && (
-            <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-600 ring-1 ring-orange-200">
+            <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-600 ring-1 ring-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:ring-orange-500/30">
               🔥 {streak}
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+        <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
           ⏱ {timeLeft}s
         </div>
       </div>
-      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-slate-100">
+      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
         <div
           className={`h-full transition-all duration-1000 ease-linear ${timePct < 30 ? 'bg-red-500' : 'bg-emerald-500'}`}
           style={{ width: `${timePct}%` }}
@@ -186,17 +186,17 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
       </div>
 
       <div key={questionNumber} className="animate-pop mt-8 flex flex-1 flex-col">
-        <h2 className="text-xl font-bold leading-snug text-slate-900 sm:text-2xl">{current.q}</h2>
+        <h2 className="text-xl font-bold leading-snug text-slate-900 sm:text-2xl dark:text-slate-100">{current.q}</h2>
 
         <div className="mt-6 grid gap-3">
           {current.shuffledOptions.map((opt) => {
             const isSelected = selected === opt
             const isCorrectOpt = opt === current.correct
-            let cls = 'bg-white ring-slate-200 shadow-sm hover:bg-slate-50 text-slate-800'
+            let cls = 'bg-white ring-slate-200 shadow-sm hover:bg-slate-50 text-slate-800 dark:bg-slate-800 dark:ring-slate-700 dark:hover:bg-slate-700/60 dark:text-slate-200'
             if (locked) {
-              if (isCorrectOpt) cls = 'bg-emerald-50 ring-emerald-400 text-emerald-700'
-              else if (isSelected) cls = 'bg-red-50 ring-red-400 text-red-700 animate-shake'
-              else cls = 'bg-slate-50 ring-slate-100 text-slate-400'
+              if (isCorrectOpt) cls = 'bg-emerald-50 ring-emerald-400 text-emerald-700 dark:bg-emerald-500/10 dark:ring-emerald-500/50 dark:text-emerald-400'
+              else if (isSelected) cls = 'bg-red-50 ring-red-400 text-red-700 animate-shake dark:bg-red-500/10 dark:ring-red-500/50 dark:text-red-400'
+              else cls = 'bg-slate-50 ring-slate-100 text-slate-400 dark:bg-slate-800/50 dark:ring-slate-800 dark:text-slate-600'
             }
             return (
               <button

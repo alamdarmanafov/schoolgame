@@ -22,18 +22,18 @@ function WinnerCard({
   mine: boolean
 }) {
   return (
-    <div className="rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-slate-200">
+    <div className="rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
       <div className="text-3xl">{emoji}</div>
-      <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</div>
+      <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">{label}</div>
       {winner ? (
         <>
-          <div className="mt-2 text-lg font-bold text-slate-900">
-            {winner.name} {mine && <span className="text-sm font-normal text-indigo-500">(Sən)</span>}
+          <div className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">
+            {winner.name} {mine && <span className="text-sm font-normal text-indigo-500 dark:text-indigo-400">(Sən)</span>}
           </div>
-          <div className="text-sm text-slate-500">{winner.total} xal</div>
+          <div className="text-sm text-slate-500 dark:text-slate-400">{winner.total} xal</div>
         </>
       ) : (
-        <div className="mt-2 text-sm text-slate-400">Hələ heç kim xal toplamayıb</div>
+        <div className="mt-2 text-sm text-slate-400 dark:text-slate-500">Hələ heç kim xal toplamayıb</div>
       )}
     </div>
   )
@@ -50,14 +50,14 @@ export default function Rewards({ highScores, profile, onBack }: Props) {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-xl flex-col px-5 py-10">
-      <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900">
+      <button onClick={onBack} className="mb-6 self-start text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
         ← Geri
       </button>
 
       <div className="text-center">
         <div className="text-4xl">🎁</div>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900">Mükafatlar</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">Mükafatlar</h2>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Həftənin və ayın ən çox xal toplayanı tərəfdaş məkanlardan endirim qazanır!
         </p>
       </div>
@@ -68,7 +68,7 @@ export default function Rewards({ highScores, profile, onBack }: Props) {
       </div>
 
       {iWon && (
-        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-center text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200">
+        <div className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-center text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-500/30">
           🎉 Təbriklər, sən qalibsən! Aşağıdakı tərəfdaşlardan endirim qazanmaq üçün bu ekranın şəklini məktəbinə/təşkilatçıya göstər.
         </div>
       )}
@@ -88,12 +88,12 @@ export default function Rewards({ highScores, profile, onBack }: Props) {
         </button>
       )}
 
-      <h3 className="mt-8 text-xs font-semibold uppercase tracking-wide text-slate-400">Tərəfdaşlar</h3>
+      <h3 className="mt-8 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">Tərəfdaşlar</h3>
       <div className="mt-3 flex flex-col gap-3">
         {partners.map((p) => (
           <div
             key={p.id}
-            className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200"
+            className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700"
           >
             <div
               className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${p.gradient} text-2xl shadow-sm`}
@@ -101,14 +101,14 @@ export default function Rewards({ highScores, profile, onBack }: Props) {
               {p.emoji}
             </div>
             <div className="min-w-0 flex-1 text-left">
-              <div className="truncate font-semibold text-slate-900">{p.name}</div>
-              <div className="text-xs text-slate-500">Qalib üçün {p.discount}</div>
+              <div className="truncate font-semibold text-slate-900 dark:text-slate-100">{p.name}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Qalib üçün {p.discount}</div>
             </div>
           </div>
         ))}
       </div>
 
-      <p className="mt-6 text-center text-xs text-slate-400">
+      <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
         Bunlar nümunə tərəfdaş yerləridir — real biznes loqoları və kupon kodları əlavə etmək üçün bizimlə əlaqə saxlayın.
       </p>
     </div>
