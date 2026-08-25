@@ -1,0 +1,156 @@
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { questionBank } from '../data/questions'
+import { shuffle } from '../lib/shuffle'
+import { pointsFor, QUESTION_SECONDS } from '../lib/scoring'
+import type { Difficulty, Question, SubjectId } from '../types'
+import { subjects } from '../data/subjects'
+
+interface Props {
+  subjectId: SubjectId
+  difficulty: Difficulty
+  onFinish: (result: { score: number; correct: number; total: number }) => void
+  onQuit: () => void
+}
+
+interface PreparedQuestion extends Question {
+  shuffledOptions: string[]
+}
+
+export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props) {
+  const subject = subjects.find((s) => s.id === subjectId)!
+
+  const questions = useMemo<PreparedQuestion[]>(() => {
+    const pool = questionBank[subjectId][difficulty]
+    return shuffle(pool).map((q) => ({ ...q, shuffledOptions: shuffle(q.options) }))
+  }, [subjectId, difficulty])
+
+  const [index, setIndex] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(QUESTION_SECONDS)
+  const [selected, setSelected] = useState<string | null>(null)
+  const [locked, setLocked] = useState(false)
+  const [score, setScore] = useState(0)
+  const [correctCount, setCorrectCount] = useState(0)
+  const [streak, setStreak] = useState(0)
+
+  const current = questions[index]
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    if (locked) return
+    if (timeLeft <= 0) {
+      handleAnswer(null)
+      return
+    }
+    const t = setTimeout(() => setTimeLeft((s) => s - 1), 1000)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeLeft, locked])
+
+  useEffect(() => {
+    return () => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current)
+    }
+  }, [])
+
+  function handleAnswer(option: string | null) {
+    if (locked) return
+    setLocked(true)
+    setSelected(option)
+
+    const isCorrect = option === current.correct
+    if (isCorrect) {
+      const gained = pointsFor(timeLeft, streak + 1)
+      setScore((s) => s + gained)
+      setCorrectCount((c) => c + 1)
+      setStreak((s) => s + 1)
+    } else {
+      setStreak(0)
+    }
+
+    advanceTimer.current = setTimeout(() => {
+      if (index + 1 < questions.length) {
+        setIndex((i) => i + 1)
+        setTimeLeft(QUESTION_SECONDS)
+        setSelected(null)
+        setLocked(false)
+      } else {
+        onFinish({
+          score: score + (isCorrect ? pointsFor(timeLeft, streak + 1) : 0),
+          correct: correctCount + (isCorrect ? 1 : 0),
+          total: questions.length,
+        })
+      }
+    }, 1100)
+  }
+
+  if (!current) return null
+
+  const progressPct = ((index + 1) / questions.length) * 100
+  const timePct = (timeLeft / QUESTION_SECONDS) * 100
+
+  return (
+    <div className="mx-auto flex min-h-screen max-w-xl flex-col px-5 py-8">
+      <div className="flex items-center justify-between text-xs text-slate-400">
+        <button onClick={onQuit} className="hover:text-white">✕ Çıx</button>
+        <span>{subject.emoji} {subject.name}</span>
+        <span>{index + 1}/{questions.length}</span>
+      </div>
+
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+        <div
+          className={`h-full bg-gradient-to-r ${subject.gradient} transition-all duration-300`}
+          style={{ width: `${progressPct}%` }}
+        />
+      </div>
+
+      <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center gap-3 text-sm">
+          <span className="rounded-full bg-white/5 px-3 py-1 font-semibold text-white ring-1 ring-white/10">
+            ⭐ {score}
+          </span>
+          {streak >= 2 && (
+            <span className="rounded-full bg-orange-500/15 px-3 py-1 font-semibold text-orange-300 ring-1 ring-orange-400/30">
+              🔥 {streak}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2 text-sm font-semibold text-white">
+          ⏱ {timeLeft}s
+        </div>
+      </div>
+      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-white/5">
+        <div
+          className={`h-full transition-all duration-1000 ease-linear ${timePct < 30 ? 'bg-red-500' : 'bg-emerald-500'}`}
+          style={{ width: `${timePct}%` }}
+        />
+      </div>
+
+      <div key={index} className="animate-pop mt-8 flex flex-1 flex-col">
+        <h2 className="text-xl font-bold leading-snug text-white sm:text-2xl">{current.q}</h2>
+
+        <div className="mt-6 grid gap-3">
+          {current.shuffledOptions.map((opt) => {
+            const isSelected = selected === opt
+            const isCorrectOpt = opt === current.correct
+            let cls = 'bg-white/5 ring-white/10 hover:bg-white/10 text-white'
+            if (locked) {
+              if (isCorrectOpt) cls = 'bg-emerald-500/20 ring-emerald-400/60 text-emerald-200'
+              else if (isSelected) cls = 'bg-red-500/20 ring-red-400/60 text-red-200 animate-shake'
+              else cls = 'bg-white/5 ring-white/5 text-slate-500'
+            }
+            return (
+              <button
+                key={opt}
+                disabled={locked}
+                onClick={() => handleAnswer(opt)}
+                className={`rounded-xl px-5 py-4 text-left text-sm font-medium ring-1 transition sm:text-base ${cls}`}
+              >
+                {opt}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
