@@ -4,12 +4,13 @@ import type { Profile as ProfileType } from '../types'
 interface Props {
   profile: ProfileType | null
   onSave: (profile: ProfileType) => void
+  onLogout: () => void
   onBack: () => void
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export default function Profile({ profile, onSave, onBack }: Props) {
+export default function Profile({ profile, onSave, onLogout, onBack }: Props) {
   const [name, setName] = useState(profile?.name ?? '')
   const [email, setEmail] = useState(profile?.email ?? '')
   const [error, setError] = useState('')
@@ -37,6 +38,14 @@ export default function Profile({ profile, onSave, onBack }: Props) {
     onSave({ name: trimmedName, email: trimmedEmail })
     setSaved(true)
     returnTimer.current = setTimeout(onBack, 900)
+  }
+
+  function handleLogout() {
+    onLogout()
+    setName('')
+    setEmail('')
+    setSaved(false)
+    onBack()
   }
 
   return (
@@ -85,6 +94,15 @@ export default function Profile({ profile, onSave, onBack }: Props) {
         >
           Yadda saxla
         </button>
+
+        {profile && (
+          <button
+            onClick={handleLogout}
+            className="mt-4 rounded-lg px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+          >
+            Çıxış et
+          </button>
+        )}
       </div>
     </div>
   )

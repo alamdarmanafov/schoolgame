@@ -73,6 +73,10 @@ export default function App() {
     setProfile(p)
   }
 
+  function handleLogout() {
+    setProfile(null)
+  }
+
   function goHome() {
     setScreen('home')
     setSubjectId(null)
@@ -102,7 +106,12 @@ export default function App() {
       )}
 
       {screen === 'profile' && (
-        <Profile profile={profile} onSave={handleSaveProfile} onBack={() => setScreen('home')} />
+        <Profile
+          profile={profile}
+          onSave={handleSaveProfile}
+          onLogout={handleLogout}
+          onBack={() => setScreen('home')}
+        />
       )}
 
       {screen === 'achievements' && <Achievements stats={stats} onBack={() => setScreen('home')} />}
