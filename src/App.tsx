@@ -146,6 +146,7 @@ export default function App() {
       {screen === 'profile' && (
         <Profile
           profile={profile}
+          registeredEmails={registeredEmails}
           onSave={handleSaveProfile}
           onLogout={handleLogout}
           onBack={handleProfileBack}
