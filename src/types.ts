@@ -26,6 +26,7 @@ export interface Subject {
 
 export interface HighScore {
   name: string
+  email?: string
   subject: SubjectId
   difficulty: Difficulty
   score: number

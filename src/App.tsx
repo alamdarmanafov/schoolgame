@@ -5,11 +5,12 @@ import Quiz from './components/Quiz'
 import Results from './components/Results'
 import Profile from './components/Profile'
 import Achievements from './components/Achievements'
+import Leaderboard from './components/Leaderboard'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { initialStats, updateStats } from './lib/stats'
 import type { Difficulty, HighScore, Profile as ProfileType, SubjectId, Stats } from './types'
 
-type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'profile' | 'achievements'
+type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'profile' | 'achievements' | 'leaderboard'
 
 interface RoundResult {
   score: number
@@ -61,6 +62,7 @@ export default function App() {
     if (!subjectId || !difficulty || !result) return
     const entry: HighScore = {
       name,
+      email: profile?.email,
       subject: subjectId,
       difficulty,
       score: result.score,
@@ -102,6 +104,7 @@ export default function App() {
           stats={stats}
           onOpenProfile={() => setScreen('profile')}
           onOpenAchievements={() => setScreen('achievements')}
+          onOpenLeaderboard={() => setScreen('leaderboard')}
         />
       )}
 
@@ -115,6 +118,10 @@ export default function App() {
       )}
 
       {screen === 'achievements' && <Achievements stats={stats} onBack={() => setScreen('home')} />}
+
+      {screen === 'leaderboard' && (
+        <Leaderboard highScores={highScores} profile={profile} onBack={() => setScreen('home')} />
+      )}
 
       {screen === 'difficulty' && subjectId && (
         <DifficultySelect

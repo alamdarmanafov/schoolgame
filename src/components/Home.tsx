@@ -10,6 +10,7 @@ interface Props {
   stats: Stats
   onOpenProfile: () => void
   onOpenAchievements: () => void
+  onOpenLeaderboard: () => void
 }
 
 export default function Home({
@@ -19,6 +20,7 @@ export default function Home({
   stats,
   onOpenProfile,
   onOpenAchievements,
+  onOpenLeaderboard,
 }: Props) {
   const unlockedCount = achievements.filter((a) => stats.unlockedAchievements.includes(a.id)).length
 
@@ -42,11 +44,12 @@ export default function Home({
       </p>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-        {bestOverall > 0 && (
-          <div className="rounded-full bg-amber-50 px-4 py-1.5 text-xs font-medium text-amber-700 ring-1 ring-amber-200">
-            🏆 Ən yüksək xalın: {bestOverall}
-          </div>
-        )}
+        <button
+          onClick={onOpenLeaderboard}
+          className="rounded-full bg-amber-50 px-4 py-1.5 text-xs font-medium text-amber-700 ring-1 ring-amber-200 transition hover:bg-amber-100"
+        >
+          🏆 Liderlik lövhəsi{bestOverall > 0 ? ` · ən yüksək: ${bestOverall}` : ''}
+        </button>
         <button
           onClick={onOpenAchievements}
           className="rounded-full bg-violet-50 px-4 py-1.5 text-xs font-medium text-violet-700 ring-1 ring-violet-200 transition hover:bg-violet-100"
