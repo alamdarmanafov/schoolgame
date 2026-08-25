@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Profile as ProfileType } from '../types'
+import { isValidEmail, isValidName, normalizeEmail } from '../lib/validate'
 
 interface SaveResult {
   alreadyRegistered: boolean
@@ -13,8 +14,6 @@ interface Props {
   onBack: () => void
   gated?: boolean
 }
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Profile({ profile, onSave, onLogout, onBack, gated = false }: Props) {
   const [name, setName] = useState(profile?.name ?? '')
@@ -31,17 +30,21 @@ export default function Profile({ profile, onSave, onLogout, onBack, gated = fal
 
   function handleSave() {
     const trimmedName = name.trim()
-    const trimmedEmail = email.trim()
     if (!trimmedName) {
       setError('Adını daxil et.')
       return
     }
-    if (!EMAIL_RE.test(trimmedEmail)) {
-      setError('Düzgün email formatı daxil et.')
+    if (!isValidName(trimmedName)) {
+      setError('Ad yalnız hərflərdən ibarət olmalıdır (2-20 simvol, rəqəm və xüsusi işarə olmadan).')
       return
     }
+    if (!isValidEmail(email)) {
+      setError('Düzgün email formatı daxil et (məs. sen@example.com).')
+      return
+    }
+    const normalizedEmail = normalizeEmail(email)
     setError('')
-    const { alreadyRegistered, resolvedName } = onSave({ name: trimmedName, email: trimmedEmail })
+    const { alreadyRegistered, resolvedName } = onSave({ name: trimmedName, email: normalizedEmail })
     if (alreadyRegistered) {
       setName(resolvedName)
       setSuccessMessage(`Bu email artıq "${resolvedName}" adı ilə qeydiyyatdan keçib — hesabına daxil olundu.`)
