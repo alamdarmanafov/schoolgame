@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Profile as ProfileType } from '../types'
 
 interface Props {
@@ -14,6 +14,13 @@ export default function Profile({ profile, onSave, onBack }: Props) {
   const [email, setEmail] = useState(profile?.email ?? '')
   const [error, setError] = useState('')
   const [saved, setSaved] = useState(false)
+  const returnTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (returnTimer.current) clearTimeout(returnTimer.current)
+    }
+  }, [])
 
   function handleSave() {
     const trimmedName = name.trim()
@@ -29,6 +36,7 @@ export default function Profile({ profile, onSave, onBack }: Props) {
     setError('')
     onSave({ name: trimmedName, email: trimmedEmail })
     setSaved(true)
+    returnTimer.current = setTimeout(onBack, 900)
   }
 
   return (
