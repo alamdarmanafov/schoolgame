@@ -58,13 +58,20 @@ export default function Home({
         </button>
       </div>
 
-      <div className="mt-8 grid w-full grid-cols-2 gap-3 sm:grid-cols-3">
+      {!profile && (
+        <p className="mt-5 text-xs font-medium text-amber-600">
+          🔒 Fənn seçəndə əvvəlcə qeydiyyatdan keçməyin istəniləcək.
+        </p>
+      )}
+
+      <div className="mt-6 grid w-full grid-cols-2 gap-3 sm:grid-cols-3">
         {subjects.map((s) => (
           <button
             key={s.id}
             onClick={() => onSelectSubject(s.id)}
-            className={`group flex flex-col items-center justify-center gap-2 rounded-2xl bg-gradient-to-br ${s.gradient} p-5 shadow-lg shadow-slate-300/50 ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 active:scale-95`}
+            className={`group relative flex flex-col items-center justify-center gap-2 rounded-2xl bg-gradient-to-br ${s.gradient} p-5 shadow-lg shadow-slate-300/50 ring-1 ring-black/5 transition-transform duration-150 hover:scale-105 active:scale-95`}
           >
+            {!profile && <span className="absolute right-2 top-2 text-sm">🔒</span>}
             <span className="text-3xl drop-shadow">{s.emoji}</span>
             <span className="text-sm font-semibold text-white sm:text-base">{s.name}</span>
           </button>

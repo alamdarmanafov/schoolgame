@@ -26,6 +26,7 @@ export default function App() {
   const [result, setResult] = useState<RoundResult | null>(null)
   const [newlyUnlocked, setNewlyUnlocked] = useState<string[]>([])
   const [attempt, setAttempt] = useState(0)
+  const [pendingSubject, setPendingSubject] = useState<SubjectId | null>(null)
   const [highScores, setHighScores] = useLocalStorage<HighScore[]>('az-school-quiz-scores', [])
   const [profile, setProfile] = useLocalStorage<ProfileType | null>('az-school-quiz-profile', null)
   const [stats, setStats] = useLocalStorage<Stats>('az-school-quiz-stats', initialStats)
@@ -33,8 +34,24 @@ export default function App() {
   const bestOverall = highScores.reduce((max, h) => Math.max(max, h.score), 0)
 
   function handleSelectSubject(id: SubjectId) {
+    if (!profile) {
+      setPendingSubject(id)
+      setScreen('profile')
+      return
+    }
     setSubjectId(id)
     setScreen('difficulty')
+  }
+
+  function handleProfileBack() {
+    if (pendingSubject && profile) {
+      setSubjectId(pendingSubject)
+      setPendingSubject(null)
+      setScreen('difficulty')
+    } else {
+      setPendingSubject(null)
+      setScreen('home')
+    }
   }
 
   function handleSelectDifficulty(d: Difficulty) {
@@ -114,7 +131,8 @@ export default function App() {
           profile={profile}
           onSave={handleSaveProfile}
           onLogout={handleLogout}
-          onBack={() => setScreen('home')}
+          onBack={handleProfileBack}
+          gated={!!pendingSubject}
         />
       )}
 

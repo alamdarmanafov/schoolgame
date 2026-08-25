@@ -6,11 +6,12 @@ interface Props {
   onSave: (profile: ProfileType) => void
   onLogout: () => void
   onBack: () => void
+  gated?: boolean
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export default function Profile({ profile, onSave, onLogout, onBack }: Props) {
+export default function Profile({ profile, onSave, onLogout, onBack, gated = false }: Props) {
   const [name, setName] = useState(profile?.name ?? '')
   const [email, setEmail] = useState(profile?.email ?? '')
   const [error, setError] = useState('')
@@ -61,6 +62,12 @@ export default function Profile({ profile, onSave, onLogout, onBack }: Props) {
           Adını və emailini daxil et — bu cihazda saxlanılır və reytinq lövhəsində istifadə olunur.
         </p>
       </div>
+
+      {gated && (
+        <div className="mt-4 rounded-xl bg-amber-50 px-4 py-3 text-center text-sm font-medium text-amber-700 ring-1 ring-amber-200">
+          🔒 İmtahana başlamaq üçün əvvəlcə qeydiyyatdan keç.
+        </div>
+      )}
 
       <div className="mt-8 flex flex-col gap-3">
         <label className="flex flex-col gap-1.5 text-left">
