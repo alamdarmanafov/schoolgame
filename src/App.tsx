@@ -77,6 +77,7 @@ export default function App() {
 
   function handleLogout() {
     setProfile(null)
+    setStats(initialStats)
   }
 
   function goHome() {
