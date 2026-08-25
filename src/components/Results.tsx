@@ -46,19 +46,19 @@ export default function Results({
   return (
     <div className="mx-auto flex min-h-screen max-w-xl flex-col items-center px-5 py-10 text-center">
       <div className="animate-pop text-6xl">{badge.emoji}</div>
-      <h2 className="mt-3 text-2xl font-bold text-white">{badge.label}</h2>
-      <p className="mt-1 text-sm text-slate-400">
+      <h2 className="mt-3 text-2xl font-bold text-slate-900">{badge.label}</h2>
+      <p className="mt-1 text-sm text-slate-500">
         {subject.emoji} {subject.name} · {difficultyMeta[difficulty].label}
       </p>
 
       <div className="mt-6 grid w-full grid-cols-2 gap-3">
-        <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
-          <div className="text-2xl font-extrabold text-white">{score}</div>
-          <div className="text-xs text-slate-400">Xal</div>
+        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+          <div className="text-2xl font-extrabold text-slate-900">{score}</div>
+          <div className="text-xs text-slate-500">Xal</div>
         </div>
-        <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
-          <div className="text-2xl font-extrabold text-white">{correct}/{total}</div>
-          <div className="text-xs text-slate-400">Düzgün cavab</div>
+        <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+          <div className="text-2xl font-extrabold text-slate-900">{correct}/{total}</div>
+          <div className="text-xs text-slate-500">Düzgün cavab</div>
         </div>
       </div>
 
@@ -70,34 +70,34 @@ export default function Results({
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             placeholder="Adını yaz və reytinqə əlavə et"
-            className="min-w-0 flex-1 rounded-lg bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 ring-1 ring-white/10 outline-none focus:ring-white/30"
+            className="min-w-0 flex-1 rounded-lg bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm ring-1 ring-slate-200 outline-none focus:ring-2 focus:ring-indigo-400"
           />
           <button
             onClick={handleSave}
-            className="shrink-0 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
+            className="shrink-0 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
           >
             Saxla
           </button>
         </div>
       ) : (
-        <p className="mt-6 text-sm text-emerald-400">✓ Nəticən reytinqə əlavə olundu</p>
+        <p className="mt-6 text-sm text-emerald-600">✓ Nəticən reytinqə əlavə olundu</p>
       )}
 
       {relevant.length > 0 && (
         <div className="mt-8 w-full text-left">
-          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
             🏆 Bu bölmənin liderləri
           </h3>
           <div className="flex flex-col gap-1.5">
             {relevant.map((h, i) => (
               <div
                 key={`${h.name}-${h.date}-${i}`}
-                className="flex items-center justify-between rounded-lg bg-white/5 px-3 py-2 text-sm ring-1 ring-white/5"
+                className="flex items-center justify-between rounded-lg bg-white px-3 py-2 text-sm shadow-sm ring-1 ring-slate-200"
               >
-                <span className="flex items-center gap-2 text-slate-200">
-                  <span className="text-slate-500">#{i + 1}</span> {h.name}
+                <span className="flex items-center gap-2 text-slate-700">
+                  <span className="text-slate-400">#{i + 1}</span> {h.name}
                 </span>
-                <span className="font-semibold text-white">{h.score}</span>
+                <span className="font-semibold text-slate-900">{h.score}</span>
               </div>
             ))}
           </div>
@@ -107,13 +107,13 @@ export default function Results({
       <div className="mt-8 flex w-full gap-3">
         <button
           onClick={onPlayAgain}
-          className={`flex-1 rounded-xl bg-gradient-to-br ${subject.gradient} px-4 py-3 text-sm font-semibold text-white transition hover:brightness-110 active:scale-95`}
+          className={`flex-1 rounded-xl bg-gradient-to-br ${subject.gradient} px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-110 active:scale-95`}
         >
           🔁 Yenidən oyna
         </button>
         <button
           onClick={onHome}
-          className="flex-1 rounded-xl bg-white/5 px-4 py-3 text-sm font-semibold text-white ring-1 ring-white/10 transition hover:bg-white/10 active:scale-95"
+          className="flex-1 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95"
         >
           🏠 Əsas menyu
         </button>

@@ -90,13 +90,13 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
 
   return (
     <div className="mx-auto flex min-h-screen max-w-xl flex-col px-5 py-8">
-      <div className="flex items-center justify-between text-xs text-slate-400">
-        <button onClick={onQuit} className="hover:text-white">✕ Çıx</button>
+      <div className="flex items-center justify-between text-xs text-slate-500">
+        <button onClick={onQuit} className="hover:text-slate-900">✕ Çıx</button>
         <span>{subject.emoji} {subject.name}</span>
         <span>{index + 1}/{questions.length}</span>
       </div>
 
-      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
         <div
           className={`h-full bg-gradient-to-r ${subject.gradient} transition-all duration-300`}
           style={{ width: `${progressPct}%` }}
@@ -105,20 +105,20 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
 
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center gap-3 text-sm">
-          <span className="rounded-full bg-white/5 px-3 py-1 font-semibold text-white ring-1 ring-white/10">
+          <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200">
             ⭐ {score}
           </span>
           {streak >= 2 && (
-            <span className="rounded-full bg-orange-500/15 px-3 py-1 font-semibold text-orange-300 ring-1 ring-orange-400/30">
+            <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-600 ring-1 ring-orange-200">
               🔥 {streak}
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2 text-sm font-semibold text-white">
+        <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
           ⏱ {timeLeft}s
         </div>
       </div>
-      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-white/5">
+      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-slate-100">
         <div
           className={`h-full transition-all duration-1000 ease-linear ${timePct < 30 ? 'bg-red-500' : 'bg-emerald-500'}`}
           style={{ width: `${timePct}%` }}
@@ -126,17 +126,17 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
       </div>
 
       <div key={index} className="animate-pop mt-8 flex flex-1 flex-col">
-        <h2 className="text-xl font-bold leading-snug text-white sm:text-2xl">{current.q}</h2>
+        <h2 className="text-xl font-bold leading-snug text-slate-900 sm:text-2xl">{current.q}</h2>
 
         <div className="mt-6 grid gap-3">
           {current.shuffledOptions.map((opt) => {
             const isSelected = selected === opt
             const isCorrectOpt = opt === current.correct
-            let cls = 'bg-white/5 ring-white/10 hover:bg-white/10 text-white'
+            let cls = 'bg-white ring-slate-200 shadow-sm hover:bg-slate-50 text-slate-800'
             if (locked) {
-              if (isCorrectOpt) cls = 'bg-emerald-500/20 ring-emerald-400/60 text-emerald-200'
-              else if (isSelected) cls = 'bg-red-500/20 ring-red-400/60 text-red-200 animate-shake'
-              else cls = 'bg-white/5 ring-white/5 text-slate-500'
+              if (isCorrectOpt) cls = 'bg-emerald-50 ring-emerald-400 text-emerald-700'
+              else if (isSelected) cls = 'bg-red-50 ring-red-400 text-red-700 animate-shake'
+              else cls = 'bg-slate-50 ring-slate-100 text-slate-400'
             }
             return (
               <button

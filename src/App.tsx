@@ -66,7 +66,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f1a]">
+    <div className="min-h-screen bg-[#f4f5fb]">
       {screen === 'home' && <Home onSelectSubject={handleSelectSubject} bestOverall={bestOverall} />}
 
       {screen === 'difficulty' && subjectId && (
