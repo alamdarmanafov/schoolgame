@@ -3,7 +3,7 @@ import { questionBank } from '../data/questions'
 import { shuffle } from '../lib/shuffle'
 import { POINTS_PER_CORRECT, QUESTION_SECONDS } from '../lib/scoring'
 import { playCorrect, playWrong } from '../lib/sound'
-import type { Difficulty, Question, SubjectId } from '../types'
+import type { Difficulty, Question, QuestionRecord, SubjectId } from '../types'
 import { subjects, difficultyMeta } from '../data/subjects'
 import MuteButton from './MuteButton'
 
@@ -19,7 +19,13 @@ const LEVEL_STYLE: Record<Difficulty, string> = {
 interface Props {
   subjectId: SubjectId
   difficulty: Difficulty
-  onFinish: (result: { score: number; correct: number; total: number; maxStreak: number }) => void
+  onFinish: (result: {
+    score: number
+    correct: number
+    total: number
+    maxStreak: number
+    history: QuestionRecord[]
+  }) => void
   onQuit: () => void
 }
 
@@ -61,6 +67,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
   const [maxStreak, setMaxStreak] = useState(0)
 
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const history = useRef<QuestionRecord[]>([])
 
   useEffect(() => {
     if (locked) return
@@ -87,6 +94,15 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
     const isCorrect = option === current.correct
     let finalMaxStreak = maxStreak
     let nextLevelIndex = levelIndex
+
+    history.current.push({
+      q: current.q,
+      options: current.shuffledOptions,
+      selected: option,
+      correct: current.correct,
+      isCorrect,
+      difficulty: current.difficulty,
+    })
 
     if (isCorrect) {
       playCorrect()
@@ -117,6 +133,7 @@ export default function Quiz({ subjectId, difficulty, onFinish, onQuit }: Props)
           correct: correctCount + (isCorrect ? 1 : 0),
           total: TOTAL_QUESTIONS,
           maxStreak: finalMaxStreak,
+          history: history.current,
         })
       }
     }, 1100)

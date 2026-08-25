@@ -7,17 +7,28 @@ import Profile from './components/Profile'
 import Achievements from './components/Achievements'
 import Leaderboard from './components/Leaderboard'
 import Rewards from './components/Rewards'
+import ReviewAnswers from './components/ReviewAnswers'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { initialStats, updateStats } from './lib/stats'
-import type { Difficulty, HighScore, Profile as ProfileType, SubjectId, Stats } from './types'
+import type { Difficulty, HighScore, Profile as ProfileType, QuestionRecord, SubjectId, Stats } from './types'
 
-type Screen = 'home' | 'difficulty' | 'quiz' | 'results' | 'profile' | 'achievements' | 'leaderboard' | 'rewards'
+type Screen =
+  | 'home'
+  | 'difficulty'
+  | 'quiz'
+  | 'results'
+  | 'profile'
+  | 'achievements'
+  | 'leaderboard'
+  | 'rewards'
+  | 'review'
 
 interface RoundResult {
   score: number
   correct: number
   total: number
   maxStreak: number
+  history: QuestionRecord[]
 }
 
 export default function App() {
@@ -195,7 +206,12 @@ export default function App() {
           onSave={handleSaveScore}
           onPlayAgain={playAgain}
           onHome={goHome}
+          onReview={() => setScreen('review')}
         />
+      )}
+
+      {screen === 'review' && subjectId && result && (
+        <ReviewAnswers subjectId={subjectId} history={result.history} onBack={() => setScreen('results')} />
       )}
     </div>
   )

@@ -17,6 +17,7 @@ interface Props {
   onSave: (name: string) => void
   onPlayAgain: () => void
   onHome: () => void
+  onReview: () => void
 }
 
 export default function Results({
@@ -31,6 +32,7 @@ export default function Results({
   onSave,
   onPlayAgain,
   onHome,
+  onReview,
 }: Props) {
   const [name, setName] = useState(profile?.name ?? '')
   const [saved, setSaved] = useState(false)
@@ -133,7 +135,14 @@ export default function Results({
         </div>
       )}
 
-      <div className="mt-8 flex w-full gap-3">
+      <button
+        onClick={onReview}
+        className="mt-8 w-full rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 active:scale-95"
+      >
+        📋 Sualların təhlilinə bax
+      </button>
+
+      <div className="mt-3 flex w-full gap-3">
         <button
           onClick={onPlayAgain}
           className={`flex-1 rounded-xl bg-gradient-to-br ${subject.gradient} px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-110 active:scale-95`}

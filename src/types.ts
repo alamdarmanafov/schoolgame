@@ -54,3 +54,12 @@ export interface Achievement {
   emoji: string
   check: (stats: Stats) => boolean
 }
+
+export interface QuestionRecord {
+  q: string
+  options: string[]
+  selected: string | null
+  correct: string
+  isCorrect: boolean
+  difficulty: Difficulty
+}
