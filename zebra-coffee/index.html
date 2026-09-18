@@ -4,56 +4,60 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Zebra Coffee - Bakıda ekspres kofe şəbəkəsi. Hər gün 07:30-23:00. Xəqani 66, Həsən Əliyev 389, F.X. Xoyski 73A.">
+<meta name="theme-color" content="#2bbfc6">
 <title>Zebra Coffee Baku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --paper: #fbfaf7;
-    --paper-2: #f1efe9;
-    --ink: #121110;
-    --ink-2: #3a3733;
-    --muted: #7a756d;
-    --line: #dedbd3;
-    --espresso: #5c3a21;
-    --crema: #c98d45;
-    --crema-soft: #f3e3cc;
+    --paper: #fbfdfd;
+    --paper-2: #eef6f7;
+    --ink: #10201f;
+    --ink-2: #35494a;
+    --muted: #6c7f80;
+    --line: #d6e5e6;
+    --teal: #2bbfc6;
+    --teal-deep: #0f8f97;
+    --teal-soft: #e2f6f7;
+    --on-teal: #ffffff;
     --ok: #2f7d4f;
-    --stripe-a: #121110;
-    --stripe-b: #fbfaf7;
-    --shadow: 0 18px 40px -22px rgba(18, 17, 16, .45);
+    --stripe-a: #ffffff;
+    --stripe-b: #2bbfc6;
+    --shadow: 0 18px 40px -22px rgba(15, 143, 151, .55);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #131211;
-      --paper-2: #1c1a18;
+      --paper: #0f1718;
+      --paper-2: #162122;
       --ink: #f5f2ec;
       --ink-2: #d4cfc6;
       --muted: #9a948a;
-      --line: #2e2b27;
-      --espresso: #d8a86e;
-      --crema: #d9a25a;
-      --crema-soft: #2a2119;
+      --line: #24393b;
+      --teal: #2bbfc6;
+      --teal-deep: #5fd6dc;
+      --teal-soft: #123032;
+      --on-teal: #062a2c;
       --ok: #6fc28f;
-      --stripe-a: #f5f2ec;
-      --stripe-b: #131211;
+      --stripe-a: #eafcfd;
+      --stripe-b: #1a9ea5;
       --shadow: 0 18px 40px -22px rgba(0, 0, 0, .8);
     }
   }
   :root[data-theme="dark"] {
-    --paper: #131211;
-    --paper-2: #1c1a18;
+    --paper: #0f1718;
+    --paper-2: #162122;
     --ink: #f5f2ec;
     --ink-2: #d4cfc6;
     --muted: #9a948a;
-    --line: #2e2b27;
-    --espresso: #d8a86e;
-    --crema: #d9a25a;
-    --crema-soft: #2a2119;
+    --line: #24393b;
+    --teal: #2bbfc6;
+    --teal-deep: #5fd6dc;
+    --teal-soft: #123032;
+    --on-teal: #062a2c;
     --ok: #6fc28f;
-    --stripe-a: #f5f2ec;
-    --stripe-b: #131211;
+    --stripe-a: #eafcfd;
+    --stripe-b: #1a9ea5;
     --shadow: 0 18px 40px -22px rgba(0, 0, 0, .8);
   }
 
@@ -72,7 +76,7 @@
   }
   h1, h2, h3 { font-family: "Unbounded", "Arial Black", "Segoe UI", sans-serif; text-wrap: balance; margin: 0; line-height: 1.1; }
   a { color: inherit; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--crema); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
   img, svg, canvas { max-width: 100%; display: block; }
   .wrap { width: min(1120px, 100%); margin-inline: auto; padding-inline: 20px; }
   .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -86,14 +90,14 @@
   }
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: .02em; font-size: 15px; }
-  .brand .mark { width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: repeating-linear-gradient(115deg, var(--stripe-a) 0 5px, var(--stripe-b) 5px 9px, var(--stripe-a) 9px 12px, var(--stripe-b) 12px 18px); border: 2px solid var(--ink); }
+  .brand .mark { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: repeating-linear-gradient(115deg, var(--stripe-b) 0 5px, var(--stripe-a) 5px 8px, var(--stripe-b) 8px 12px, var(--stripe-a) 12px 15px, var(--stripe-b) 15px 22px); }
   .nav { display: flex; gap: 22px; font-weight: 600; font-size: 14px; }
   .nav a { text-decoration: none; color: var(--ink-2); }
   .nav a:hover { color: var(--ink); }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease; cursor: pointer; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; border: 2px solid var(--teal); background: var(--teal); color: #ffffff; transition: transform .15s ease, background .15s ease; cursor: pointer; }
   .btn:hover { transform: translateY(-1px); }
-  .btn.ghost { background: transparent; color: var(--ink); }
-  .btn.crema { background: var(--crema); border-color: var(--crema); color: #1a1208; }
+  .btn.ghost { background: transparent; color: var(--teal-deep); }
+  .btn.crema { background: var(--teal); border-color: var(--teal); color: #ffffff; }
   .topbar .btn { padding: 9px 16px; }
   @media (max-width: 720px) { .nav { display: none; } }
 
@@ -101,16 +105,16 @@
   .hero { padding-block: 56px 40px; }
   .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: center; }
   .hero h1 { font-size: clamp(38px, 6.2vw, 74px); font-weight: 900; letter-spacing: -.02em; }
-  .hero h1 em { font-style: normal; color: var(--espresso); }
+  .hero h1 em { font-style: normal; color: var(--teal-deep); }
   .hero p.lead { font-size: 18px; color: var(--ink-2); max-width: 46ch; margin: 20px 0 28px; }
   .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
   .facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 28px; font-size: 14px; color: var(--muted); font-weight: 600; }
   .facts span b { color: var(--ink); font-weight: 700; }
   .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-right: 6px; vertical-align: 1px; }
-  .zebra-art { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; overflow: hidden; border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow); }
+  .zebra-art { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; overflow: hidden; background: var(--teal); box-shadow: var(--shadow); }
   .zebra-art canvas { width: 100%; height: 100%; }
   .zebra-art .cup { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: 52%; }
-  .price-tag { position: absolute; top: 18px; right: 18px; background: var(--crema); color: #1a1208; font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--ink); }
+  .price-tag { position: absolute; top: 18px; right: 18px; background: #ffffff; color: var(--teal-deep); font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; }
   @media (max-width: 860px) {
     .hero { padding-block: 36px 24px; }
     .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; }
@@ -118,7 +122,17 @@
   }
 
   /* ---- Stripe band ---- */
-  .band { height: 26px; background: repeating-linear-gradient(100deg, var(--stripe-a) 0 14px, var(--stripe-b) 14px 22px, var(--stripe-a) 22px 30px, var(--stripe-b) 30px 52px); border-block: 2px solid var(--ink); }
+  .band { height: 26px; background: repeating-linear-gradient(100deg, var(--stripe-b) 0 14px, var(--stripe-a) 14px 22px, var(--stripe-b) 22px 30px, var(--stripe-a) 30px 52px); }
+
+  /* Promo */
+  .promo { padding-block: 28px 0; }
+  .promo-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 22px; align-items: center; background: var(--teal-soft); border-radius: 22px; padding: 22px 26px; }
+  .promo-date { text-align: center; background: var(--teal); color: #ffffff; border-radius: 16px; padding: 12px 16px; min-width: 84px; font-family: "Unbounded", sans-serif; }
+  .promo-date span { display: block; font-size: 30px; font-weight: 900; line-height: 1; }
+  .promo-date small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+  .promo-card h3 { font-size: 18px; font-weight: 700; margin-top: 6px; }
+  .promo-card p { margin: 6px 0 0; color: var(--ink-2); font-size: 14px; }
+  @media (max-width: 720px) { .promo-card { grid-template-columns: minmax(0, 1fr); padding: 20px; } .promo-date { width: max-content; } }
 
   /* ---- Sections ---- */
   section { padding-block: 64px; }
@@ -129,21 +143,21 @@
   /* Menu */
   .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
   .menu-tabs button { font: inherit; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; }
-  .menu-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .menu-tabs button[aria-selected="true"] { background: var(--teal); color: #ffffff; border-color: var(--teal); }
   .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
   .menu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
   .menu-item .name { font-weight: 700; font-size: 16px; }
   .menu-item .desc { grid-column: 1; color: var(--muted); font-size: 14px; }
-  .menu-item .price { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--espresso); white-space: nowrap; }
-  .menu-item .tag { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--crema-soft); color: var(--espresso); padding: 2px 8px; border-radius: 999px; vertical-align: 2px; }
+  .menu-item .price { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--teal-deep); white-space: nowrap; }
+  .menu-item .tag { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--teal-soft); color: var(--teal-deep); padding: 2px 8px; border-radius: 999px; vertical-align: 2px; }
   .menu-note { margin-top: 22px; font-size: 13px; color: var(--muted); }
   @media (max-width: 720px) { .menu-grid { grid-template-columns: minmax(0, 1fr); } }
 
   /* Locations */
   .locations { background: var(--paper-2); border-block: 1px solid var(--line); }
   .loc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .loc { background: var(--paper); border: 2px solid var(--ink); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 100%; }
-  .loc .n { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; color: var(--muted); }
+  .loc { background: var(--paper); border: 2px solid var(--teal); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 100%; }
+  .loc .n { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; color: var(--teal-deep); }
   .loc h3 { font-size: 17px; font-weight: 700; }
   .loc .addr { color: var(--ink-2); }
   .loc .hours { font-size: 14px; color: var(--muted); }
@@ -154,26 +168,27 @@
   /* About */
   .about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
   .about p { color: var(--ink-2); font-size: 17px; max-width: 52ch; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); border-radius: 20px; overflow: hidden; }
-  .stat { padding: 22px 18px; border-right: 2px solid var(--ink); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--teal); border-radius: 20px; overflow: hidden; }
+  .stat { padding: 22px 18px; border-right: 2px solid var(--teal); }
+  .stat b { color: var(--teal-deep); }
   .stat:last-child { border-right: 0; }
   .stat b { display: block; font-family: "Unbounded", sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 900; line-height: 1; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
   .stat span { font-size: 13px; color: var(--muted); font-weight: 600; }
   @media (max-width: 860px) { .about .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
-  @media (max-width: 460px) { .stats { grid-template-columns: 1fr; } .stat { border-right: 0; border-bottom: 2px solid var(--ink); } .stat:last-child { border-bottom: 0; } }
+  @media (max-width: 460px) { .stats { grid-template-columns: 1fr; } .stat { border-right: 0; border-bottom: 2px solid var(--teal); } .stat:last-child { border-bottom: 0; } }
 
   /* Order / contact */
-  .order { background: var(--ink); color: var(--paper); }
+  .order { background: var(--teal); color: #ffffff; }
   .order .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 40px; align-items: center; }
   .order h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; letter-spacing: -.01em; }
-  .order p { color: color-mix(in srgb, var(--paper) 75%, transparent); font-size: 17px; max-width: 46ch; }
-  .order .btn { border-color: var(--paper); }
-  .order .btn.solid { background: var(--paper); color: var(--ink); }
-  .order .btn.ghost { color: var(--paper); }
+  .order p { color: rgba(255,255,255,.85); font-size: 17px; max-width: 46ch; }
+  .order .btn { border-color: #ffffff; }
+  .order .btn.solid { background: #ffffff; color: var(--teal-deep); }
+  .order .btn.ghost { color: #ffffff; background: transparent; }
   .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
   .contact-list li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; }
-  .contact-list svg { width: 22px; height: 22px; stroke: var(--crema); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .contact-list small { display: block; color: color-mix(in srgb, var(--paper) 60%, transparent); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+  .contact-list svg { width: 22px; height: 22px; stroke: #ffffff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-list small { display: block; color: rgba(255,255,255,.7); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
   @media (max-width: 860px) { .order .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
 
   footer { padding-block: 28px; font-size: 13px; color: var(--muted); }
@@ -201,7 +216,7 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <div class="eyebrow">Bakı · Ekspres kofe şəbəkəsi</div>
+        <div class="eyebrow" style="color:var(--teal-deep)">Bakı · Ekspres kofe şəbəkəsi · cold • fresh • tasty</div>
         <h1 style="margin-top:14px">Şəhərin ritmində <em>espresso.</em></h1>
         <p class="lead">Tələsirsən? Biz də. Zebra Coffee-də sifarişin bir-iki dəqiqəyə hazır olur: təzə üyüdülmüş dənə, sabit resept, ədalətli qiymət. Səhər 07:30-dan gecə 23:00-a kimi, Bakının üç nöqtəsində.</p>
         <div class="cta">
@@ -222,21 +237,35 @@
           <defs>
             <clipPath id="cupclip"><path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z"/></clipPath>
           </defs>
-          <path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z" fill="#fbfaf7" stroke="#121110" stroke-width="5"/>
+          <path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z" fill="#ffffff" stroke="#0f8f97" stroke-width="5"/>
           <g clip-path="url(#cupclip)">
-            <rect x="20" y="118" width="190" height="20" fill="#121110"/>
-            <rect x="20" y="150" width="190" height="12" fill="#121110"/>
+            <rect x="20" y="118" width="190" height="20" fill="#2bbfc6"/>
+            <rect x="20" y="150" width="190" height="12" fill="#2bbfc6"/>
           </g>
-          <rect x="22" y="44" width="176" height="22" rx="8" fill="#c98d45" stroke="#121110" stroke-width="5"/>
-          <path d="M80 44 Q84 20 110 18 Q136 20 140 44" fill="none" stroke="#121110" stroke-width="5"/>
-          <path d="M72 66 Q80 96 110 98 Q140 96 148 66" fill="#5c3a21" opacity=".0"/>
-          <text x="110" y="100" text-anchor="middle" font-family="Unbounded, Arial Black, sans-serif" font-weight="900" font-size="20" fill="#121110">ZEBRA</text>
+          <rect x="22" y="44" width="176" height="22" rx="8" fill="#ffffff" stroke="#0f8f97" stroke-width="5"/>
+          <path d="M80 44 Q84 20 110 18 Q136 20 140 44" fill="none" stroke="#0f8f97" stroke-width="5"/>
+                    <text x="110" y="100" text-anchor="middle" font-family="Unbounded, Arial Black, sans-serif" font-weight="900" font-size="20" fill="#0f8f97">ZEBRA</text>
+          <text x="110" y="120" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="600" font-size="9" letter-spacing="1.5" fill="#0f8f97">COLD • FRESH • TASTY</text>
         </svg>
       </div>
     </div>
   </section>
 
   <div class="band" aria-hidden="true"></div>
+
+  <section class="promo" aria-label="Kampaniya">
+    <div class="wrap">
+      <div class="promo-card">
+        <div class="promo-date"><span>15</span><small>sentyabr</small></div>
+        <div>
+          <div class="eyebrow" style="color:var(--teal-deep)">Kampaniya · Back to Zebra Coffee</div>
+          <h3>Bütün məktəblilər üçün: hər uşaq içkisinə bir ponçik hədiyyə</h3>
+          <p>Dostlarınla birlikdə məktəbə qayıdışı Zebra Coffee-də qeyd et. Ponçiklərin sayı məhduddur.</p>
+        </div>
+        <a class="btn ghost" href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">Instagram-da bax</a>
+      </div>
+    </div>
+  </section>
 
   <section id="menyu">
     <div class="wrap">
@@ -345,8 +374,8 @@
     <div class="wrap">
       <div>
         <div class="eyebrow">Haqqımızda</div>
-        <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:700;margin-top:14px">Qara-ağ. Sadə. Sürətli.</h2>
-        <p style="margin-top:18px">Zebra Coffee Bakının ekspres kofe şəbəkəsidir. Fikir sadədir: yaxşı kofe bahalı və yavaş olmamalıdır. Hər filialda eyni dənə, eyni resept, eyni zolaqlar. İşə gedərkən, dərs arasında, gecə gəzintisində: ilk açılan və son bağlanan yerlərdən biriyik.</p>
+        <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:700;margin-top:14px">Soyuq. Təzə. Dadlı.</h2>
+        <p style="margin-top:18px">Zebra Coffee Bakının ekspres kofe şəbəkəsidir. Fikir sadədir: yaxşı kofe bahalı və yavaş olmamalıdır. Hər filialda eyni dənə, eyni resept, eyni firuzəyi zolaqlar. İşə gedərkən, dərs arasında, gecə gəzintisində: ilk açılan və son bağlanan yerlərdən biriyik.</p>
         <p>Instagram-da <a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a> hesabımızda yeni içkilər, filiallar və kampaniyalar.</p>
       </div>
       <div class="stats" role="list">
@@ -360,7 +389,7 @@
   <section id="elaqe" class="order">
     <div class="wrap">
       <div>
-        <div class="eyebrow" style="color:var(--crema)">Sifariş və əlaqə</div>
+        <div class="eyebrow" style="color:rgba(255,255,255,.8)">Sifariş və əlaqə</div>
         <h2 style="margin-top:14px">Kofeni sən gəlmə, o gəlsin.</h2>
         <p>Wolt vasitəsilə çatdırılma, ya da yaxınlıqdakı filialdan götür. Suallar üçün Instagram-a yaz.</p>
         <div class="cta" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
@@ -420,8 +449,8 @@
     var W = c.width, H = c.height;
     var css = getComputedStyle(document.documentElement);
     function draw() {
-      var a = css.getPropertyValue('--stripe-a').trim() || '#121110';
-      var b = css.getPropertyValue('--stripe-b').trim() || '#fbfaf7';
+      var a = css.getPropertyValue('--stripe-a').trim() || '#ffffff';
+      var b = css.getPropertyValue('--stripe-b').trim() || '#2bbfc6';
       ctx.fillStyle = b; ctx.fillRect(0, 0, W, H);
       ctx.fillStyle = a;
       var n = 11, seed = 7;
