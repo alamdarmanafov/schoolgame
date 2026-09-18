@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Zebra Coffee - Bakıda ekspres kofe şəbəkəsi. Hər gün 07:30-23:00. Xəqani 66, Həsən Əliyev 389, F.X. Xoyski 73A.">
+<title>Zebra Coffee Baku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: #fbfaf7;
+    --paper-2: #f1efe9;
+    --ink: #121110;
+    --ink-2: #3a3733;
+    --muted: #7a756d;
+    --line: #dedbd3;
+    --espresso: #5c3a21;
+    --crema: #c98d45;
+    --crema-soft: #f3e3cc;
+    --ok: #2f7d4f;
+    --stripe-a: #121110;
+    --stripe-b: #fbfaf7;
+    --shadow: 0 18px 40px -22px rgba(18, 17, 16, .45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #131211;
+      --paper-2: #1c1a18;
+      --ink: #f5f2ec;
+      --ink-2: #d4cfc6;
+      --muted: #9a948a;
+      --line: #2e2b27;
+      --espresso: #d8a86e;
+      --crema: #d9a25a;
+      --crema-soft: #2a2119;
+      --ok: #6fc28f;
+      --stripe-a: #f5f2ec;
+      --stripe-b: #131211;
+      --shadow: 0 18px 40px -22px rgba(0, 0, 0, .8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #131211;
+    --paper-2: #1c1a18;
+    --ink: #f5f2ec;
+    --ink-2: #d4cfc6;
+    --muted: #9a948a;
+    --line: #2e2b27;
+    --espresso: #d8a86e;
+    --crema: #d9a25a;
+    --crema-soft: #2a2119;
+    --ok: #6fc28f;
+    --stripe-a: #f5f2ec;
+    --stripe-b: #131211;
+    --shadow: 0 18px 40px -22px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  .wrap > *, .hero .wrap > *, .about .wrap > *, .order .wrap > * { min-width: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: "Unbounded", "Arial Black", "Segoe UI", sans-serif; text-wrap: balance; margin: 0; line-height: 1.1; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--crema); outline-offset: 3px; }
+  img, svg, canvas { max-width: 100%; display: block; }
+  .wrap { width: min(1120px, 100%); margin-inline: auto; padding-inline: 20px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---- Top bar ---- */
+  .topbar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: .02em; font-size: 15px; }
+  .brand .mark { width: 34px; height: 34px; border-radius: 9px; overflow: hidden; background: repeating-linear-gradient(115deg, var(--stripe-a) 0 5px, var(--stripe-b) 5px 9px, var(--stripe-a) 9px 12px, var(--stripe-b) 12px 18px); border: 2px solid var(--ink); }
+  .nav { display: flex; gap: 22px; font-weight: 600; font-size: 14px; }
+  .nav a { text-decoration: none; color: var(--ink-2); }
+  .nav a:hover { color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); transition: transform .15s ease, background .15s ease; cursor: pointer; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.crema { background: var(--crema); border-color: var(--crema); color: #1a1208; }
+  .topbar .btn { padding: 9px 16px; }
+  @media (max-width: 720px) { .nav { display: none; } }
+
+  /* ---- Hero ---- */
+  .hero { padding-block: 56px 40px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(38px, 6.2vw, 74px); font-weight: 900; letter-spacing: -.02em; }
+  .hero h1 em { font-style: normal; color: var(--espresso); }
+  .hero p.lead { font-size: 18px; color: var(--ink-2); max-width: 46ch; margin: 20px 0 28px; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 28px; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .facts span b { color: var(--ink); font-weight: 700; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-right: 6px; vertical-align: 1px; }
+  .zebra-art { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; overflow: hidden; border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--shadow); }
+  .zebra-art canvas { width: 100%; height: 100%; }
+  .zebra-art .cup { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: 52%; }
+  .price-tag { position: absolute; top: 18px; right: 18px; background: var(--crema); color: #1a1208; font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--ink); }
+  @media (max-width: 860px) {
+    .hero { padding-block: 36px 24px; }
+    .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .zebra-art { aspect-ratio: 5 / 4; }
+  }
+
+  /* ---- Stripe band ---- */
+  .band { height: 26px; background: repeating-linear-gradient(100deg, var(--stripe-a) 0 14px, var(--stripe-b) 14px 22px, var(--stripe-a) 22px 30px, var(--stripe-b) 30px 52px); border-block: 2px solid var(--ink); }
+
+  /* ---- Sections ---- */
+  section { padding-block: 64px; }
+  .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+  .sec-head h2 { font-size: clamp(26px, 3.6vw, 40px); font-weight: 700; letter-spacing: -.01em; }
+  .sec-head p { margin: 6px 0 0; color: var(--muted); }
+
+  /* Menu */
+  .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .menu-tabs button { font: inherit; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; }
+  .menu-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+  .menu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .menu-item .name { font-weight: 700; font-size: 16px; }
+  .menu-item .desc { grid-column: 1; color: var(--muted); font-size: 14px; }
+  .menu-item .price { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--espresso); white-space: nowrap; }
+  .menu-item .tag { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--crema-soft); color: var(--espresso); padding: 2px 8px; border-radius: 999px; vertical-align: 2px; }
+  .menu-note { margin-top: 22px; font-size: 13px; color: var(--muted); }
+  @media (max-width: 720px) { .menu-grid { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Locations */
+  .locations { background: var(--paper-2); border-block: 1px solid var(--line); }
+  .loc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .loc { background: var(--paper); border: 2px solid var(--ink); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 10px; min-height: 100%; }
+  .loc .n { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; color: var(--muted); }
+  .loc h3 { font-size: 17px; font-weight: 700; }
+  .loc .addr { color: var(--ink-2); }
+  .loc .hours { font-size: 14px; color: var(--muted); }
+  .loc .links { margin-top: auto; padding-top: 8px; display: flex; gap: 14px; font-size: 14px; font-weight: 700; }
+  .loc .links a { text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 860px) { .loc-grid { grid-template-columns: minmax(0, 1fr); } }
+
+  /* About */
+  .about .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .about p { color: var(--ink-2); font-size: 17px; max-width: 52ch; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); border-radius: 20px; overflow: hidden; }
+  .stat { padding: 22px 18px; border-right: 2px solid var(--ink); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-family: "Unbounded", sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 900; line-height: 1; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 13px; color: var(--muted); font-weight: 600; }
+  @media (max-width: 860px) { .about .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+  @media (max-width: 460px) { .stats { grid-template-columns: 1fr; } .stat { border-right: 0; border-bottom: 2px solid var(--ink); } .stat:last-child { border-bottom: 0; } }
+
+  /* Order / contact */
+  .order { background: var(--ink); color: var(--paper); }
+  .order .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 40px; align-items: center; }
+  .order h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; letter-spacing: -.01em; }
+  .order p { color: color-mix(in srgb, var(--paper) 75%, transparent); font-size: 17px; max-width: 46ch; }
+  .order .btn { border-color: var(--paper); }
+  .order .btn.solid { background: var(--paper); color: var(--ink); }
+  .order .btn.ghost { color: var(--paper); }
+  .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .contact-list li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; }
+  .contact-list svg { width: 22px; height: 22px; stroke: var(--crema); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-list small { display: block; color: color-mix(in srgb, var(--paper) 60%, transparent); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+  @media (max-width: 860px) { .order .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+
+  footer { padding-block: 28px; font-size: 13px; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Zebra Coffee ana səhifə"><span class="mark"></span>ZEBRA COFFEE</a>
+    <nav class="nav" aria-label="Əsas naviqasiya">
+      <a href="#menyu">Menyu</a>
+      <a href="#mekanlar">Məkanlar</a>
+      <a href="#haqqimizda">Haqqımızda</a>
+      <a href="#elaqe">Əlaqə</a>
+    </nav>
+    <a class="btn crema" href="https://wolt.com" target="_blank" rel="noopener">Wolt ilə sifariş</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Bakı · Ekspres kofe şəbəkəsi</div>
+        <h1 style="margin-top:14px">Şəhərin ritmində <em>espresso.</em></h1>
+        <p class="lead">Tələsirsən? Biz də. Zebra Coffee-də sifarişin bir-iki dəqiqəyə hazır olur: təzə üyüdülmüş dənə, sabit resept, ədalətli qiymət. Səhər 07:30-dan gecə 23:00-a kimi, Bakının üç nöqtəsində.</p>
+        <div class="cta">
+          <a class="btn" href="#menyu">Menyuya bax</a>
+          <a class="btn ghost" href="#mekanlar">Ən yaxın Zebra</a>
+        </div>
+        <div class="facts">
+          <span><span class="status-dot"></span><b>Açıqdır</b> · 23:00-da bağlanır</span>
+          <span><b>₼1–10</b> nəfər başına</span>
+          <span><b>4.3 ★</b> Google · 84 rəy</span>
+          <span><b>Dine-in</b> · Takeaway</span>
+        </div>
+      </div>
+      <div class="zebra-art" aria-hidden="true">
+        <canvas id="stripes" width="640" height="800"></canvas>
+        <div class="price-tag">Espresso ₼3</div>
+        <svg class="cup" viewBox="0 0 220 200" role="img">
+          <defs>
+            <clipPath id="cupclip"><path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z"/></clipPath>
+          </defs>
+          <path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z" fill="#fbfaf7" stroke="#121110" stroke-width="5"/>
+          <g clip-path="url(#cupclip)">
+            <rect x="20" y="118" width="190" height="20" fill="#121110"/>
+            <rect x="20" y="150" width="190" height="12" fill="#121110"/>
+          </g>
+          <rect x="22" y="44" width="176" height="22" rx="8" fill="#c98d45" stroke="#121110" stroke-width="5"/>
+          <path d="M80 44 Q84 20 110 18 Q136 20 140 44" fill="none" stroke="#121110" stroke-width="5"/>
+          <path d="M72 66 Q80 96 110 98 Q140 96 148 66" fill="#5c3a21" opacity=".0"/>
+          <text x="110" y="100" text-anchor="middle" font-family="Unbounded, Arial Black, sans-serif" font-weight="900" font-size="20" fill="#121110">ZEBRA</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true"></div>
+
+  <section id="menyu">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Menyu</div>
+          <h2>Qısa menyu, uzun növbəsiz.</h2>
+          <p>Espresso əsaslı içkilər, soyuq variantlar və gündəlik şirniyyat.</p>
+        </div>
+        <a class="btn ghost" href="https://wolt.com" target="_blank" rel="noopener">Çatdırılma ilə sifariş et</a>
+      </div>
+
+      <div class="menu-tabs" role="tablist" aria-label="Menyu kateqoriyaları">
+        <button role="tab" id="tab-isti" aria-selected="true" aria-controls="panel-isti">İsti kofe</button>
+        <button role="tab" id="tab-soyuq" aria-selected="false" aria-controls="panel-soyuq">Soyuq</button>
+        <button role="tab" id="tab-diger" aria-selected="false" aria-controls="panel-diger">Kofesiz</button>
+        <button role="tab" id="tab-yemek" aria-selected="false" aria-controls="panel-yemek">Yanına</button>
+      </div>
+
+      <div class="menu-grid" id="panel-isti" role="tabpanel" aria-labelledby="tab-isti">
+        <div class="menu-item"><span class="name">Espresso</span><span class="price">₼3.00</span><span class="desc">Bir porsiya, 30 ml. Sabit, tünd, qısa.</span></div>
+        <div class="menu-item"><span class="name">Doppio</span><span class="price">₼3.50</span><span class="desc">İkiqat espresso.</span></div>
+        <div class="menu-item"><span class="name">Americano</span><span class="price">₼3.50</span><span class="desc">Espresso + isti su. S / M / L.</span></div>
+        <div class="menu-item"><span class="name">Cappuccino<span class="tag">Ən çox satılan</span></span><span class="price">₼4.50</span><span class="desc">Sıx süd köpüyü ilə klassik.</span></div>
+        <div class="menu-item"><span class="name">Latte</span><span class="price">₼5.00</span><span class="desc">Yumşaq, südlü. Vanil və ya karamel siropu +₼0.50.</span></div>
+        <div class="menu-item"><span class="name">Flat White</span><span class="price">₼5.00</span><span class="desc">İkiqat espresso, nazik süd qatı.</span></div>
+        <div class="menu-item"><span class="name">Raf</span><span class="price">₼6.00</span><span class="desc">Kremlə çalınmış, vanilli.</span></div>
+        <div class="menu-item"><span class="name">Mocha</span><span class="price">₼6.00</span><span class="desc">Espresso, şokolad, süd.</span></div>
+      </div>
+
+      <div class="menu-grid" id="panel-soyuq" role="tabpanel" aria-labelledby="tab-soyuq" hidden>
+        <div class="menu-item"><span class="name">Iced Americano</span><span class="price">₼4.00</span><span class="desc">Buzlu, yüngül.</span></div>
+        <div class="menu-item"><span class="name">Iced Latte<span class="tag">Yay hiti</span></span><span class="price">₼5.50</span><span class="desc">Soyuq süd və espresso.</span></div>
+        <div class="menu-item"><span class="name">Cold Brew</span><span class="price">₼5.00</span><span class="desc">16 saat soyuq dəmləmə.</span></div>
+        <div class="menu-item"><span class="name">Frappe</span><span class="price">₼6.50</span><span class="desc">Blenderdə, karamel və ya şokolad.</span></div>
+        <div class="menu-item"><span class="name">Bumble</span><span class="price">₼6.00</span><span class="desc">Portağal şirəsi + espresso.</span></div>
+        <div class="menu-item"><span class="name">Iced Matcha</span><span class="price">₼6.50</span><span class="desc">Yapon matça, soyuq süd.</span></div>
+      </div>
+
+      <div class="menu-grid" id="panel-diger" role="tabpanel" aria-labelledby="tab-diger" hidden>
+        <div class="menu-item"><span class="name">Matcha Latte</span><span class="price">₼6.00</span><span class="desc">İsti, südlü matça.</span></div>
+        <div class="menu-item"><span class="name">İsti şokolad</span><span class="price">₼5.00</span><span class="desc">Qatı, zefirlə.</span></div>
+        <div class="menu-item"><span class="name">Çay</span><span class="price">₼2.50</span><span class="desc">Qara, yaşıl, meyvəli. Çaynikdə.</span></div>
+        <div class="menu-item"><span class="name">Limonad</span><span class="price">₼4.00</span><span class="desc">Ev hazırlığı, mövsümi.</span></div>
+        <div class="menu-item"><span class="name">Su / Qazlı su</span><span class="price">₼1.00</span><span class="desc">0.5 l.</span></div>
+      </div>
+
+      <div class="menu-grid" id="panel-yemek" role="tabpanel" aria-labelledby="tab-yemek" hidden>
+        <div class="menu-item"><span class="name">Kruassan</span><span class="price">₼3.50</span><span class="desc">Sadə, badamlı və ya şokoladlı.</span></div>
+        <div class="menu-item"><span class="name">Sendviç</span><span class="price">₼6.00</span><span class="desc">Toyuq və ya pendir-göyərti, isti.</span></div>
+        <div class="menu-item"><span class="name">Cheesecake</span><span class="price">₼6.00</span><span class="desc">Klassik New York.</span></div>
+        <div class="menu-item"><span class="name">Brownie</span><span class="price">₼4.00</span><span class="desc">Qozlu.</span></div>
+        <div class="menu-item"><span class="name">Cookie</span><span class="price">₼2.50</span><span class="desc">Şokolad damcılı.</span></div>
+        <div class="menu-item"><span class="name">Kofe dənəsi, 250 q<span class="tag">Evə</span></span><span class="price">₼18.00</span><span class="desc">Bizim qovurma. Üyüdülmüş də olar.</span></div>
+      </div>
+
+      <p class="menu-note">* Nümunə menyu və qiymətlərdir. Real qiymətlər filiallar üzrə fərqlənə bilər. Nəfər başına orta hesab: ₼1–10.</p>
+    </div>
+  </section>
+
+  <section id="mekanlar" class="locations">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Məkanlar</div>
+          <h2>Bakıda üç Zebra.</h2>
+          <p>Hər gün 07:30 – 23:00. Yerində iç, ya da götür get.</p>
+        </div>
+      </div>
+      <div class="loc-grid">
+        <article class="loc">
+          <span class="n">01 · Mərkəz</span>
+          <h3>Xəqani küçəsi 66</h3>
+          <div class="addr">Xəqani prospekti 66, Bakı<br><span style="color:var(--muted);font-size:14px">Plus kod: 9VG2+26 Baku</span></div>
+          <div class="hours">Hər gün · 07:30 – 23:00</div>
+          <div class="links">
+            <a href="https://www.google.com/maps/search/?api=1&query=9VG2%2B26+Baku" target="_blank" rel="noopener">Xəritədə aç</a>
+            <a href="https://wolt.com" target="_blank" rel="noopener">Wolt</a>
+          </div>
+        </article>
+        <article class="loc">
+          <span class="n">02 · Gənclik</span>
+          <h3>Həsən Əliyev küçəsi 389</h3>
+          <div class="addr">Həsən Əliyev küç. 389, Bakı</div>
+          <div class="hours">Hər gün · 07:30 – 23:00</div>
+          <div class="links">
+            <a href="https://www.google.com/maps/search/?api=1&query=H%C9%99s%C9%99n+%C6%8Fliyev+389+Baku" target="_blank" rel="noopener">Xəritədə aç</a>
+            <a href="https://wolt.com" target="_blank" rel="noopener">Wolt</a>
+          </div>
+        </article>
+        <article class="loc">
+          <span class="n">03 · Nərimanov</span>
+          <h3>Fətəli xan Xoyski pr. 73A</h3>
+          <div class="addr">Fətəli xan Xoyski prospekti 73A, Bakı</div>
+          <div class="hours">Hər gün · 07:30 – 23:00</div>
+          <div class="links">
+            <a href="https://www.google.com/maps/search/?api=1&query=F%C9%99t%C9%99li+xan+Xoyski+73A+Baku" target="_blank" rel="noopener">Xəritədə aç</a>
+            <a href="https://wolt.com" target="_blank" rel="noopener">Wolt</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="haqqimizda" class="about">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Haqqımızda</div>
+        <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:700;margin-top:14px">Qara-ağ. Sadə. Sürətli.</h2>
+        <p style="margin-top:18px">Zebra Coffee Bakının ekspres kofe şəbəkəsidir. Fikir sadədir: yaxşı kofe bahalı və yavaş olmamalıdır. Hər filialda eyni dənə, eyni resept, eyni zolaqlar. İşə gedərkən, dərs arasında, gecə gəzintisində: ilk açılan və son bağlanan yerlərdən biriyik.</p>
+        <p>Instagram-da <a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a> hesabımızda yeni içkilər, filiallar və kampaniyalar.</p>
+      </div>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem"><b>3</b><span>filial Bakıda</span></div>
+        <div class="stat" role="listitem"><b>15.5 s</b><span>hər gün açıq</span></div>
+        <div class="stat" role="listitem"><b>12.7K</b><span>Instagram izləyici</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="elaqe" class="order">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" style="color:var(--crema)">Sifariş və əlaqə</div>
+        <h2 style="margin-top:14px">Kofeni sən gəlmə, o gəlsin.</h2>
+        <p>Wolt vasitəsilə çatdırılma, ya da yaxınlıqdakı filialdan götür. Suallar üçün Instagram-a yaz.</p>
+        <div class="cta" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
+          <a class="btn solid" href="https://wolt.com" target="_blank" rel="noopener">Wolt-da sifariş et</a>
+          <a class="btn ghost" href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <ul class="contact-list">
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><small>İş saatları</small>Hər gün 07:30 – 23:00</div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 0 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+          <div><small>Ünvanlar</small>Xəqani 66 · Həsən Əliyev 389 · F. X. Xoyski 73A</div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+          <div><small>Instagram</small><a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l-1.5 12h-13z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <div><small>Çatdırılma</small><a href="https://wolt.com" target="_blank" rel="noopener">wolt.com</a></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Zebra Coffee Azerbaijan · Nümunə sayt</span>
+    <span>Xəqani küç. 66, Bakı · <a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a></span>
+  </div>
+</footer>
+
+<script>
+  // Menu tabs
+  (function () {
+    var tabs = document.querySelectorAll('[role="tab"]');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+      });
+    });
+  })();
+
+  // Organic zebra stripes drawn on canvas
+  (function () {
+    var c = document.getElementById('stripes');
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.width, H = c.height;
+    var css = getComputedStyle(document.documentElement);
+    function draw() {
+      var a = css.getPropertyValue('--stripe-a').trim() || '#121110';
+      var b = css.getPropertyValue('--stripe-b').trim() || '#fbfaf7';
+      ctx.fillStyle = b; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = a;
+      var n = 11, seed = 7;
+      function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+      for (var i = 0; i < n; i++) {
+        var y0 = (i / n) * H - 40;
+        var thick = 22 + rnd() * 30;
+        var amp = 30 + rnd() * 50;
+        var ph = rnd() * Math.PI * 2;
+        var freq = 1.2 + rnd() * 1.2;
+        ctx.beginPath();
+        for (var x = -20; x <= W + 20; x += 8) {
+          var t = x / W;
+          var y = y0 + Math.sin(t * Math.PI * freq + ph) * amp + t * 60;
+          if (x === -20) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        for (var x2 = W + 20; x2 >= -20; x2 -= 8) {
+          var t2 = x2 / W;
+          var w = thick * (0.55 + 0.45 * Math.sin(t2 * Math.PI * 2.2 + ph));
+          var y2 = y0 + Math.sin(t2 * Math.PI * freq + ph) * amp + t2 * 60 + w;
+          ctx.lineTo(x2, y2);
+        }
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+    draw();
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', draw);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+</script>
+</body>
+</html>
