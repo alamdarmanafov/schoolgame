@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Zebra Coffee - Bakıda ekspres kofe şəbəkəsi. Hər gün 07:30-23:00. Xəqani 66, Həsən Əliyev 389, F.X. Xoyski 73A.">
-<meta name="theme-color" content="#2bbfc6">
+<meta name="theme-color" content="#11b7ba">
 <title>Zebra Coffee Baku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,13 @@
     --ink-2: #35494a;
     --muted: #6c7f80;
     --line: #d6e5e6;
-    --teal: #2bbfc6;
-    --teal-deep: #0f8f97;
+    --teal: #11b7ba;
+    --teal-deep: #0b8a8d;
     --teal-soft: #e2f6f7;
     --on-teal: #ffffff;
     --ok: #2f7d4f;
     --stripe-a: #ffffff;
-    --stripe-b: #2bbfc6;
+    --stripe-b: #11b7ba;
     --shadow: 0 18px 40px -22px rgba(15, 143, 151, .55);
   }
   @media (prefers-color-scheme: dark) {
@@ -34,7 +34,7 @@
       --ink-2: #d4cfc6;
       --muted: #9a948a;
       --line: #24393b;
-      --teal: #2bbfc6;
+      --teal: #11b7ba;
       --teal-deep: #5fd6dc;
       --teal-soft: #123032;
       --on-teal: #062a2c;
@@ -51,7 +51,7 @@
     --ink-2: #d4cfc6;
     --muted: #9a948a;
     --line: #24393b;
-    --teal: #2bbfc6;
+    --teal: #11b7ba;
     --teal-deep: #5fd6dc;
     --teal-soft: #123032;
     --on-teal: #062a2c;
@@ -81,6 +81,21 @@
   .wrap { width: min(1120px, 100%); margin-inline: auto; padding-inline: 20px; }
   .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
+  /* ---- Logo ---- */
+  .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--teal); --logo-bg: var(--paper); }
+  .logo svg { width: 38px; height: 38px; flex: none; }
+  .logo .word { display: flex; flex-direction: column; line-height: 1; }
+  .logo .word b { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .2em; color: var(--ink); }
+  .logo .word small { display: flex; align-items: center; gap: 6px; font-family: "Manrope", sans-serif; font-weight: 600; font-size: 10px; letter-spacing: .12em; color: var(--teal); margin-top: 3px; }
+  .logo .word small::before, .logo .word small::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .7; }
+  .logo.on-teal { color: #ffffff; --logo-bg: var(--teal); }
+  .logo.on-teal .word b, .logo.on-teal .word small { color: #ffffff; }
+  .logo.big { flex-direction: column; gap: 14px; }
+  .logo.big svg { width: 42%; height: auto; }
+  .logo.big .word { align-items: center; }
+  .logo.big .word b { font-size: clamp(22px, 4vw, 34px); }
+  .logo.big .word small { font-size: 13px; width: 100%; }
+
   /* ---- Top bar ---- */
   .topbar {
     position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
@@ -89,8 +104,6 @@
     border-bottom: 1px solid var(--line);
   }
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: "Unbounded", sans-serif; font-weight: 900; letter-spacing: .02em; font-size: 15px; }
-  .brand .mark { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: repeating-linear-gradient(115deg, var(--stripe-b) 0 5px, var(--stripe-a) 5px 8px, var(--stripe-b) 8px 12px, var(--stripe-a) 12px 15px, var(--stripe-b) 15px 22px); }
   .nav { display: flex; gap: 22px; font-weight: 600; font-size: 14px; }
   .nav a { text-decoration: none; color: var(--ink-2); }
   .nav a:hover { color: var(--ink); }
@@ -99,7 +112,17 @@
   .btn.ghost { background: transparent; color: var(--teal-deep); }
   .btn.crema { background: var(--teal); border-color: var(--teal); color: #ffffff; }
   .topbar .btn { padding: 9px 16px; }
-  @media (max-width: 720px) { .nav { display: none; } }
+  .nav-toggle { display: none; width: 42px; height: 42px; border-radius: 12px; border: 2px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; align-items: center; justify-content: center; }
+  .nav-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; }
+  @media (max-width: 720px) {
+    .nav { display: none; position: absolute; left: 0; right: 0; top: 64px; flex-direction: column; gap: 0; background: var(--paper); border-bottom: 1px solid var(--line); padding: 8px 20px 14px; }
+    .nav.open { display: flex; }
+    .nav a { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+    .nav a:last-child { border-bottom: 0; }
+    .nav-toggle { display: inline-flex; }
+    .topbar .btn { display: none; }
+    .topbar .wrap { position: relative; }
+  }
 
   /* ---- Hero ---- */
   .hero { padding-block: 56px 40px; }
@@ -113,8 +136,8 @@
   .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-right: 6px; vertical-align: 1px; }
   .zebra-art { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; overflow: hidden; background: var(--teal); box-shadow: var(--shadow); }
   .zebra-art canvas { width: 100%; height: 100%; }
-  .zebra-art .cup { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: 52%; }
-  .price-tag { position: absolute; top: 18px; right: 18px; background: #ffffff; color: var(--teal-deep); font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; }
+  .art-logo { position: absolute; inset: 0; justify-content: center; padding: 10%; }
+  .art-logo .word { width: 60%; }
   @media (max-width: 860px) {
     .hero { padding-block: 36px 24px; }
     .hero .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; }
@@ -137,19 +160,6 @@
   .sec-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
   .sec-head h2 { font-size: clamp(26px, 3.6vw, 40px); font-weight: 700; letter-spacing: -.01em; }
   .sec-head p { margin: 6px 0 0; color: var(--muted); }
-
-  /* Menu */
-  .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .menu-tabs button { font: inherit; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 2px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; }
-  .menu-tabs button[aria-selected="true"] { background: var(--teal); color: #ffffff; border-color: var(--teal); }
-  .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
-  .menu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-  .menu-item .name { font-weight: 700; font-size: 16px; }
-  .menu-item .desc { grid-column: 1; color: var(--muted); font-size: 14px; }
-  .menu-item .price { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; color: var(--teal-deep); white-space: nowrap; }
-  .menu-item .tag { display: inline-block; margin-left: 8px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--teal-soft); color: var(--teal-deep); padding: 2px 8px; border-radius: 999px; vertical-align: 2px; }
-  .menu-note { margin-top: 22px; font-size: 13px; color: var(--muted); }
-  @media (max-width: 720px) { .menu-grid { grid-template-columns: minmax(0, 1fr); } }
 
   /* Locations */
   .locations { background: var(--paper-2); border-block: 1px solid var(--line); }
@@ -199,14 +209,28 @@
 
 <header class="topbar">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Zebra Coffee ana səhifə"><span class="mark"></span>ZEBRA COFFEE</a>
-    <nav class="nav" aria-label="Əsas naviqasiya">
-      <a href="#menyu">Menyu</a>
-      <a href="#mekanlar">Məkanlar</a>
+    <a class="logo" href="#top" aria-label="Zebra Coffee ana səhifə">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <defs><clipPath id="zclip-nav"><path d="M47 3c10 8 15 24 8 38C48 54 34 62 22 58 10 54 8 40 14 30 22 17 36 9 47 3z"/></clipPath></defs>
+        <path d="M47 3c10 8 15 24 8 38C48 54 34 62 22 58 10 54 8 40 14 30 22 17 36 9 47 3z" fill="currentColor"/>
+        <g clip-path="url(#zclip-nav)" fill="none" stroke="var(--logo-bg)" stroke-width="4.2" stroke-linecap="round">
+          <path d="M2 36c14-4 28 2 38 18"/>
+          <path d="M8 22c16-4 32 6 42 24"/>
+          <path d="M24 6c12 2 22 12 28 30"/>
+        </g>
+      </svg>
+      <span class="word"><b>ZEBRA</b><small>coffee</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Əsas naviqasiya">
+      <a href="#top">Ana səhifə</a>
       <a href="#haqqimizda">Haqqımızda</a>
+      <a href="#mekanlar">Məkanlar</a>
       <a href="#elaqe">Əlaqə</a>
     </nav>
     <a class="btn crema" href="https://wolt.com" target="_blank" rel="noopener">Wolt ilə sifariş</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menyunu aç" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </header>
 
@@ -218,8 +242,8 @@
         <h1 style="margin-top:14px">Şəhərin ritmində <em>espresso.</em></h1>
         <p class="lead">Tələsirsən? Biz də. Zebra Coffee-də sifarişin bir-iki dəqiqəyə hazır olur: təzə üyüdülmüş dənə, sabit resept, ədalətli qiymət. Səhər 07:30-dan gecə 23:00-a kimi, Bakının üç nöqtəsində.</p>
         <div class="cta">
-          <a class="btn" href="#menyu">Menyuya bax</a>
-          <a class="btn ghost" href="#mekanlar">Ən yaxın Zebra</a>
+          <a class="btn" href="#mekanlar">Ən yaxın Zebra</a>
+          <a class="btn ghost" href="#haqqimizda">Haqqımızda</a>
         </div>
         <div class="facts">
           <span><span class="status-dot"></span><b>Açıqdır</b> · 23:00-da bağlanır</span>
@@ -230,21 +254,18 @@
       </div>
       <div class="zebra-art" aria-hidden="true">
         <canvas id="stripes" width="640" height="800"></canvas>
-        <div class="price-tag">Espresso ₼3</div>
-        <svg class="cup" viewBox="0 0 220 200" role="img">
-          <defs>
-            <clipPath id="cupclip"><path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z"/></clipPath>
-          </defs>
-          <path d="M30 60 H190 L176 178 Q174 190 162 190 H58 Q46 190 44 178 Z" fill="#ffffff" stroke="#0f8f97" stroke-width="5"/>
-          <g clip-path="url(#cupclip)">
-            <rect x="20" y="118" width="190" height="20" fill="#2bbfc6"/>
-            <rect x="20" y="150" width="190" height="12" fill="#2bbfc6"/>
+        <div class="logo big on-teal art-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+          <defs><clipPath id="zclip-hero"><path d="M47 3c10 8 15 24 8 38C48 54 34 62 22 58 10 54 8 40 14 30 22 17 36 9 47 3z"/></clipPath></defs>
+          <path d="M47 3c10 8 15 24 8 38C48 54 34 62 22 58 10 54 8 40 14 30 22 17 36 9 47 3z" fill="currentColor"/>
+          <g clip-path="url(#zclip-hero)" fill="none" stroke="var(--logo-bg)" stroke-width="4.2" stroke-linecap="round">
+            <path d="M2 36c14-4 28 2 38 18"/>
+            <path d="M8 22c16-4 32 6 42 24"/>
+            <path d="M24 6c12 2 22 12 28 30"/>
           </g>
-          <rect x="22" y="44" width="176" height="22" rx="8" fill="#ffffff" stroke="#0f8f97" stroke-width="5"/>
-          <path d="M80 44 Q84 20 110 18 Q136 20 140 44" fill="none" stroke="#0f8f97" stroke-width="5"/>
-                    <text x="110" y="100" text-anchor="middle" font-family="Unbounded, Arial Black, sans-serif" font-weight="900" font-size="20" fill="#0f8f97">ZEBRA</text>
-          <text x="110" y="120" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="600" font-size="9" letter-spacing="1.5" fill="#0f8f97">COLD • FRESH • TASTY</text>
-        </svg>
+      </svg>
+          <span class="word"><b>ZEBRA</b><small>coffee</small></span>
+        </div>
       </div>
     </div>
   </section>
@@ -264,62 +285,20 @@
     </div>
   </section>
 
-  <section id="menyu">
+  <section id="haqqimizda" class="about">
     <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <div class="eyebrow">Menyu</div>
-          <h2>Qısa menyu, uzun növbəsiz.</h2>
-          <p>Espresso əsaslı içkilər, soyuq variantlar və gündəlik şirniyyat.</p>
-        </div>
-        <a class="btn ghost" href="https://wolt.com" target="_blank" rel="noopener">Çatdırılma ilə sifariş et</a>
+      <div>
+        <div class="eyebrow">Haqqımızda</div>
+        <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:700;margin-top:14px">Cold. Fresh. Tasty.</h2>
+        <p style="margin-top:18px">Zebra Coffee Bakının ekspres kofe şəbəkəsidir. Fikir sadədir: yaxşı kofe bahalı və yavaş olmamalıdır. Hər filialda eyni dənə, eyni resept, eyni firuzəyi zolaqlar. İşə gedərkən, dərs arasında, gecə gəzintisində: ilk açılan və son bağlanan yerlərdən biriyik.</p>
+        <p>Menyuda espresso əsaslı klassiklər, soyuq içkilər, matça və gündəlik şirniyyat var. Sifarişi yerində, götürüb-getmə və ya Wolt ilə çatdırılma formasında verə bilərsən. Orta hesab nəfər başına ₼1–10.</p>
+        <p>Instagram-da <a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a> hesabımızda yeni içkilər, filiallar və kampaniyalar.</p>
       </div>
-
-      <div class="menu-tabs" role="tablist" aria-label="Menyu kateqoriyaları">
-        <button role="tab" id="tab-isti" aria-selected="true" aria-controls="panel-isti">İsti kofe</button>
-        <button role="tab" id="tab-soyuq" aria-selected="false" aria-controls="panel-soyuq">Soyuq</button>
-        <button role="tab" id="tab-diger" aria-selected="false" aria-controls="panel-diger">Kofesiz</button>
-        <button role="tab" id="tab-yemek" aria-selected="false" aria-controls="panel-yemek">Yanına</button>
+      <div class="stats" role="list">
+        <div class="stat" role="listitem"><b>3</b><span>filial Bakıda</span></div>
+        <div class="stat" role="listitem"><b>15.5 s</b><span>hər gün açıq</span></div>
+        <div class="stat" role="listitem"><b>12.7K</b><span>Instagram izləyici</span></div>
       </div>
-
-      <div class="menu-grid" id="panel-isti" role="tabpanel" aria-labelledby="tab-isti">
-        <div class="menu-item"><span class="name">Espresso</span><span class="price">₼3.00</span><span class="desc">Bir porsiya, 30 ml. Sabit, tünd, qısa.</span></div>
-        <div class="menu-item"><span class="name">Doppio</span><span class="price">₼3.50</span><span class="desc">İkiqat espresso.</span></div>
-        <div class="menu-item"><span class="name">Americano</span><span class="price">₼3.50</span><span class="desc">Espresso + isti su. S / M / L.</span></div>
-        <div class="menu-item"><span class="name">Cappuccino<span class="tag">Ən çox satılan</span></span><span class="price">₼4.50</span><span class="desc">Sıx süd köpüyü ilə klassik.</span></div>
-        <div class="menu-item"><span class="name">Latte</span><span class="price">₼5.00</span><span class="desc">Yumşaq, südlü. Vanil və ya karamel siropu +₼0.50.</span></div>
-        <div class="menu-item"><span class="name">Flat White</span><span class="price">₼5.00</span><span class="desc">İkiqat espresso, nazik süd qatı.</span></div>
-        <div class="menu-item"><span class="name">Raf</span><span class="price">₼6.00</span><span class="desc">Kremlə çalınmış, vanilli.</span></div>
-        <div class="menu-item"><span class="name">Mocha</span><span class="price">₼6.00</span><span class="desc">Espresso, şokolad, süd.</span></div>
-      </div>
-
-      <div class="menu-grid" id="panel-soyuq" role="tabpanel" aria-labelledby="tab-soyuq" hidden>
-        <div class="menu-item"><span class="name">Iced Americano</span><span class="price">₼4.00</span><span class="desc">Buzlu, yüngül.</span></div>
-        <div class="menu-item"><span class="name">Iced Latte<span class="tag">Yay hiti</span></span><span class="price">₼5.50</span><span class="desc">Soyuq süd və espresso.</span></div>
-        <div class="menu-item"><span class="name">Cold Brew</span><span class="price">₼5.00</span><span class="desc">16 saat soyuq dəmləmə.</span></div>
-        <div class="menu-item"><span class="name">Frappe</span><span class="price">₼6.50</span><span class="desc">Blenderdə, karamel və ya şokolad.</span></div>
-        <div class="menu-item"><span class="name">Bumble</span><span class="price">₼6.00</span><span class="desc">Portağal şirəsi + espresso.</span></div>
-        <div class="menu-item"><span class="name">Iced Matcha</span><span class="price">₼6.50</span><span class="desc">Yapon matça, soyuq süd.</span></div>
-      </div>
-
-      <div class="menu-grid" id="panel-diger" role="tabpanel" aria-labelledby="tab-diger" hidden>
-        <div class="menu-item"><span class="name">Matcha Latte</span><span class="price">₼6.00</span><span class="desc">İsti, südlü matça.</span></div>
-        <div class="menu-item"><span class="name">İsti şokolad</span><span class="price">₼5.00</span><span class="desc">Qatı, zefirlə.</span></div>
-        <div class="menu-item"><span class="name">Çay</span><span class="price">₼2.50</span><span class="desc">Qara, yaşıl, meyvəli. Çaynikdə.</span></div>
-        <div class="menu-item"><span class="name">Limonad</span><span class="price">₼4.00</span><span class="desc">Ev hazırlığı, mövsümi.</span></div>
-        <div class="menu-item"><span class="name">Su / Qazlı su</span><span class="price">₼1.00</span><span class="desc">0.5 l.</span></div>
-      </div>
-
-      <div class="menu-grid" id="panel-yemek" role="tabpanel" aria-labelledby="tab-yemek" hidden>
-        <div class="menu-item"><span class="name">Kruassan</span><span class="price">₼3.50</span><span class="desc">Sadə, badamlı və ya şokoladlı.</span></div>
-        <div class="menu-item"><span class="name">Sendviç</span><span class="price">₼6.00</span><span class="desc">Toyuq və ya pendir-göyərti, isti.</span></div>
-        <div class="menu-item"><span class="name">Cheesecake</span><span class="price">₼6.00</span><span class="desc">Klassik New York.</span></div>
-        <div class="menu-item"><span class="name">Brownie</span><span class="price">₼4.00</span><span class="desc">Qozlu.</span></div>
-        <div class="menu-item"><span class="name">Cookie</span><span class="price">₼2.50</span><span class="desc">Şokolad damcılı.</span></div>
-        <div class="menu-item"><span class="name">Kofe dənəsi, 250 q<span class="tag">Evə</span></span><span class="price">₼18.00</span><span class="desc">Bizim qovurma. Üyüdülmüş də olar.</span></div>
-      </div>
-
-      <p class="menu-note">* Nümunə menyu və qiymətlərdir. Real qiymətlər filiallar üzrə fərqlənə bilər. Nəfər başına orta hesab: ₼1–10.</p>
     </div>
   </section>
 
@@ -367,22 +346,6 @@
     </div>
   </section>
 
-  <section id="haqqimizda" class="about">
-    <div class="wrap">
-      <div>
-        <div class="eyebrow">Haqqımızda</div>
-        <h2 style="font-size:clamp(26px,3.6vw,40px);font-weight:700;margin-top:14px">Soyuq. Təzə. Dadlı.</h2>
-        <p style="margin-top:18px">Zebra Coffee Bakının ekspres kofe şəbəkəsidir. Fikir sadədir: yaxşı kofe bahalı və yavaş olmamalıdır. Hər filialda eyni dənə, eyni resept, eyni firuzəyi zolaqlar. İşə gedərkən, dərs arasında, gecə gəzintisində: ilk açılan və son bağlanan yerlərdən biriyik.</p>
-        <p>Instagram-da <a href="https://www.instagram.com/zebracoffee.aze/" target="_blank" rel="noopener">@zebracoffee.aze</a> hesabımızda yeni içkilər, filiallar və kampaniyalar.</p>
-      </div>
-      <div class="stats" role="list">
-        <div class="stat" role="listitem"><b>3</b><span>filial Bakıda</span></div>
-        <div class="stat" role="listitem"><b>15.5 s</b><span>hər gün açıq</span></div>
-        <div class="stat" role="listitem"><b>12.7K</b><span>Instagram izləyici</span></div>
-      </div>
-    </div>
-  </section>
-
   <section id="elaqe" class="order">
     <div class="wrap">
       <div>
@@ -424,18 +387,15 @@
 </footer>
 
 <script>
-  // Menu tabs
+  // Mobile nav
   (function () {
-    var tabs = document.querySelectorAll('[role="tab"]');
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        tabs.forEach(function (t) {
-          var on = t === tab;
-          t.setAttribute('aria-selected', on ? 'true' : 'false');
-          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-        });
-      });
+    var t = document.getElementById('nav-toggle'), n = document.getElementById('nav');
+    if (!t || !n) return;
+    t.addEventListener('click', function () {
+      var open = n.classList.toggle('open');
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+    n.addEventListener('click', function (e) { if (e.target.tagName === 'A') { n.classList.remove('open'); t.setAttribute('aria-expanded', 'false'); } });
   })();
 
   // Organic zebra stripes drawn on canvas
@@ -447,9 +407,9 @@
     var css = getComputedStyle(document.documentElement);
     function draw() {
       var a = css.getPropertyValue('--stripe-a').trim() || '#ffffff';
-      var b = css.getPropertyValue('--stripe-b').trim() || '#2bbfc6';
+      var b = css.getPropertyValue('--stripe-b').trim() || '#11b7ba';
       ctx.fillStyle = b; ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = a;
+      ctx.fillStyle = 'rgba(255,255,255,.28)';
       var n = 11, seed = 7;
       function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
       for (var i = 0; i < n; i++) {
